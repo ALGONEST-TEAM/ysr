@@ -1,0 +1,243 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../../core/state/data_state.dart';
+import '../../../../../../core/state/state.dart';
+import '../../data/model/cart_model.dart';
+import '../../data/model/cart_product_model.dart';
+import '../../data/repos/cart_repo.dart';
+
+final getAllCartProvider =
+    StateNotifierProvider.autoDispose<
+      GetAllCartController,
+      DataState<List<CartModel>>
+    >((ref) {
+      return GetAllCartController();
+    });
+
+class GetAllCartController extends StateNotifier<DataState<List<CartModel>>> {
+  GetAllCartController() : super(DataState<List<CartModel>>.initial([])) {
+    getData();
+  }
+
+  final _controller = CartReposaitory();
+
+  Future<void> getData() async {
+    state = state.copyWith(state: States.loading);
+    final data = await _controller.getAllCart();
+    data.fold(
+      (f) {
+        state = state.copyWith(state: States.error, exception: f);
+      },
+      (data) {
+        state = state.copyWith(state: States.loaded, data: data);
+      },
+    );
+  }
+}
+
+final getCartCountProvider =
+    StateNotifierProvider.autoDispose<GetCartCountNotifier, int>(
+      (ref) => GetCartCountNotifier(),
+    );
+
+class GetCartCountNotifier extends StateNotifier<int> {
+  GetCartCountNotifier() : super(0);
+
+  final _repo = CartReposaitory();
+
+  Future<void> refresh() async {
+    final res = await _repo.getCartCount();
+    if (!mounted) return; // ✅ قد يكون dispose() تم أثناء الانتظار
+    res.fold((_) {}, (count) => state = count);
+  }
+
+  void set(int value) => state = value;
+
+  void clear() => state = 0;
+}
+
+enum CartOperation { none, add, update, delete }
+
+final cartProvider =
+    StateNotifierProvider.autoDispose<
+      CartController,
+      DataState<CartProductModel>
+    >((ref) {
+      return CartController();
+    });
+
+class CartController extends StateNotifier<DataState<CartProductModel>> {
+  CartController()
+    : super(DataState<CartProductModel>.initial(CartProductModel.empty()));
+
+  final _controller = CartReposaitory();
+
+  CartOperation _lastOperation = CartOperation.none;
+
+  CartOperation get lastOperation => _lastOperation;
+
+  final List<CartModel> _selectedProducts = [];
+
+  List<CartModel> get selectedProducts => _selectedProducts;
+
+  double calculateSelectedTotalPrice() {
+    return _selectedProducts.fold(0, (sum, product) {
+      if (product.isPrintable == 1) {
+        return sum +
+            (product.productPriceAfterDiscount! * product.quantity!) +
+            (product.printingPrice! * product.quantity!);
+      } else {
+        return sum + (product.productPriceAfterDiscount! * product.quantity!);
+      }
+    });
+  }
+
+  void toggleAllProductsSelection(bool isChecked, List<CartModel> allProducts) {
+    if (isChecked) {
+      selectedProducts.clear();
+      selectedProducts.addAll(allProducts.map((product) => product));
+    } else {
+      selectedProducts.clear();
+    }
+    state = state.copyWith(state: States.initial);
+  }
+
+  bool isAllProductsSelected(List<CartModel> allProducts) {
+    return selectedProducts.length == allProducts.length &&
+        allProducts.every(
+          (product) => selectedProducts.any((p) => p.id == product.id),
+        );
+  }
+
+  void toggleProductSelection(bool isChecked, CartModel product) {
+    if (isChecked) {
+      _selectedProducts.add(product);
+    } else {
+      _selectedProducts.removeWhere((p) => p.id == product.id);
+    }
+    state = state.copyWith(state: States.initial);
+  }
+
+  void updateSelectedProduct(CartModel updatedProduct) {
+    int index = selectedProducts.indexWhere((p) => p.id == updatedProduct.id);
+    if (index != -1) {
+      selectedProducts[index] = updatedProduct;
+    }
+  }
+
+  void updateSelectedProductQuantity(int id, int quantity) {
+    int index = selectedProducts.indexWhere((p) => p.id == id);
+    if (index != -1) {
+      selectedProducts[index] = selectedProducts[index].copyWith(
+        quantity: quantity,
+      );
+    }
+  }
+
+  Future<void> addToCart({
+    required int prodectId,
+    required dynamic colorId,
+    required int sizeId,
+    required dynamic price,
+    required int quantity,
+    required int? numberId,
+    required int isPrintable,
+  }) async {
+    _lastOperation = CartOperation.add;
+    state = state.copyWith(state: States.loading);
+    final data = await _controller.addToCart(
+      prodectId,
+      colorId,
+      sizeId,
+      price,
+      quantity,
+      numberId,
+      isPrintable,
+    );
+    data.fold(
+      (f) {
+        state = state.copyWith(state: States.error, exception: f);
+      },
+      (data) {
+        state = state.copyWith(state: States.loaded);
+      },
+    );
+  }
+
+  Future<void> updateCart({
+    required int id,
+    required int prodectId,
+    required dynamic colorId,
+    required int sizeId,
+    required dynamic price,
+    required int quantity,
+    required int? numberId,
+    required int isPrintable,
+  }) async {
+    _lastOperation = CartOperation.update;
+
+    state = state.copyWith(state: States.loading);
+    final data = await _controller.updateCart(
+      id,
+      prodectId,
+      colorId,
+      sizeId,
+      price,
+      quantity,
+      numberId,
+      isPrintable,
+    );
+    data.fold(
+      (f) {
+        state = state.copyWith(state: States.error, exception: f);
+      },
+      (data) {
+        state = state.copyWith(state: States.loaded, data: data);
+        updateSelectedProductQuantity(id, quantity);
+      },
+    );
+  }
+
+  Future<void> deleteAProductFromTheCart({
+    required int id,
+    required WidgetRef ref,
+  }) async {
+    _lastOperation = CartOperation.delete;
+
+    state = state.copyWith(state: States.loading);
+    final data = await _controller.deleteAProductFromTheCart(id);
+    data.fold(
+      (f) {
+        state = state.copyWith(state: States.error, exception: f);
+      },
+      (data) {
+        selectedProducts.removeWhere((product) => product.id == id);
+        ref
+            .read(getAllCartProvider.notifier)
+            .state
+            .data
+            .removeWhere((item) => item.id == id);
+        ref.read(getCartCountProvider.notifier).refresh();
+        state = state.copyWith(state: States.loaded);
+      },
+    );
+  }
+}
+
+final cartProductProvider = StateNotifierProvider.autoDispose
+    .family<CartProductNotifier, CartModel, int>((ref, productId) {
+      final cartState = ref.watch(getAllCartProvider);
+      final product = cartState.data.firstWhere(
+        (item) => item.id == productId,
+        orElse: () => CartModel.empty(),
+      );
+      return CartProductNotifier(product);
+    });
+
+class CartProductNotifier extends StateNotifier<CartModel> {
+  CartProductNotifier(super.initialData);
+
+  void updateProduct(CartModel newData) {
+    state = newData;
+  }
+}

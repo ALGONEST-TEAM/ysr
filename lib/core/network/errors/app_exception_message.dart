@@ -1,0 +1,26 @@
+// import 'package:dio/dio.dart';
+//
+// import 'local_app_exception.dart';
+// import 'local_exception.dart';
+// import 'remote_exception.dart';
+//
+// /// واجهة موحّدة لاستخراج رسالة الخطأ من Remote أو Local.
+// ///
+// /// - إذا كان الاستثناء DioException: نستخدم MessageOfErorrApi (نظامك الحالي).
+// /// - خلاف ذلك: نستخدم MessageOfLocalError (النظام المحلي).
+// class MessageOfError {
+//   static List<String> get(Object exception) {
+//     if (exception is DioException) {
+//       final nested = exception.error;
+//       if (nested is LocalAppException ||
+//           nested is FormatException ||
+//           nested is Error) {
+//         // return MessageOfLocalError.getExceptionMessage(nested as Object);
+//       }
+//       return MessageOfErorrApi.getExeptionMessage(exception);
+//     }
+//     return MessageOfErorrApi.getExeptionMessage(exception is DioException);
+//
+//     // return MessageOfLocalError.getExceptionMessage(exception);
+//   }
+// }

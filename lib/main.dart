@@ -1,0 +1,166 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'core/network/remote_request.dart';
+import 'core/state/app_restart_controller.dart';
+import 'package:ysr/injection.dart' as di;
+import 'core/theme/theme.dart';
+import 'core/widgets/bottomNavbar/bottom_navigation_bar_widget.dart';
+import 'features/profile/presentation/riverpod/setting_riverpod.dart';
+import 'features/shop/category/data/model/category_data.dart';
+import 'features/shop/home/data/model/section_data.dart';
+import 'features/shop/home/data/model/section_with_product_data.dart';
+import 'features/shop/productManagement/detailsProducts/data/model/color_data.dart';
+import 'features/shop/productManagement/detailsProducts/data/model/discount_model.dart';
+import 'features/shop/productManagement/detailsProducts/data/model/paginated_products_list_data.dart';
+import 'features/shop/productManagement/detailsProducts/data/model/product_data.dart';
+import 'generated/l10n.dart';
+import 'services/auth/auth.dart';
+
+final GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  // await NotificationBootstrap.I.init(debug: kDebugMode);
+
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+    if (kReleaseMode) {
+      debugPrint("Flutter Error in Release Mode: ${details.exception}");
+    }
+  };
+  runZonedGuarded(
+        () async {
+      RemoteRequest.initDio();
+      await Hive.initFlutter();
+      Hive.registerAdapter(SectionAndProductDataAdapter());
+      Hive.registerAdapter(SectionDataAdapter());
+      Hive.registerAdapter(PaginatedProductsListAdapter());
+      Hive.registerAdapter(CategoryDataAdapter());
+      Hive.registerAdapter(ProductDataAdapter());
+      Hive.registerAdapter(ColorOfProductDataAdapter());
+      Hive.registerAdapter(DiscountModelAdapter());
+      await di.init();
+      await Auth().onInit();
+      runApp(const AppRestartController(child: MyApp()));
+    },
+        (error, stackTrace) {
+      debugPrint("Caught error in release mode: $error");
+      debugPrint("Stack trace: $stackTrace");
+    },
+  );
+}
+
+class MyApp extends ConsumerStatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  // SyncAutoRunner? _syncAutoRunner;
+  // SyncFailedNotifier? _syncFailedNotifier;
+  // AuthorizationSyncRunner? _authorizationSyncRunner;
+
+  @override
+  void initState() {
+    // Start deep link listener as early as possible.
+    // ignore: discarded_futures
+    // DeepLinkService.I.start();
+    //
+    // FirebaseMessagingService.I.getDeviceToken().then((t) {
+    //   if (t != null) {
+    //     debugPrint('Device Token: $t');
+    //     Auth().setFcmToken(t);
+    //   }
+    // });
+
+    // ✅ مزامنة احترافية (عند التشغيل + عند رجوع النت)
+    // تم تجميع المنطق في خدمة واحدة SyncAutoRunner لسهولة الصيانة ومنع التكرار.
+    // Future.microtask(() async {
+    //   _syncAutoRunner = di.sl<SyncAutoRunner>();
+    //   await _syncAutoRunner!.start();
+    //
+    //   // ✅ Authorization: sync roles->permissions on app start + on connectivity regained
+    //   _authorizationSyncRunner = di.sl<AuthorizationSyncRunner>();
+    //   await _authorizationSyncRunner!.start();
+    //
+    //   // ✅ مراقبة أخطاء المزامنة المتأخرة (FAILED) وعرضها للمستخدم
+    //   _syncFailedNotifier = SyncFailedNotifier(
+    //     db: di.sl(),
+    //     navigatorKey: appNavigatorKey,
+    //   )..start();
+    // });
+    //
+    // if (Auth().loggedIn) {
+    //   FirebaseMessagingService.I.onRefreshUnread = () {
+    //     ref.read(unreadCountProvider.notifier).refresh();
+    //   };
+    //   FirebaseMessagingService.I.onSetUnread = (c) {
+    //     ref.read(unreadCountProvider.notifier).set(c);
+    //   };
+    //   Future.microtask(() => ref.read(unreadCountProvider.notifier).refresh());
+    //   Future.microtask(() => ref.read(getCartCountProvider.notifier).refresh());
+    // } else {
+    //   FirebaseMessagingService.I.onRefreshUnread = null;
+    //   FirebaseMessagingService.I.onSetUnread = null;
+    // }
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // FirebaseMessagingService.I.onRefreshUnread = null;
+    // FirebaseMessagingService.I.onSetUnread = null;
+    // // ignore: discarded_futures
+    // DeepLinkService.I.dispose();
+    // // ignore: unawaited_futures
+    // _syncAutoRunner?.dispose();
+    // // ignore: unawaited_futures
+    // _authorizationSyncRunner?.dispose();
+    // // ignore: unawaited_futures
+    // _syncFailedNotifier?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = ref.watch(languageProvider);
+
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: false,
+      splitScreenMode: false,
+      child: MaterialApp(
+        navigatorKey: appNavigatorKey,
+
+        debugShowCheckedModeBanner: false,
+        locale: locale,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('ar'),
+          // Locale('en'),
+        ],
+        theme: lightTheme,
+        home: BottomNavigationBarWidget()
+      ),
+    );
+  }
+}
+
+
