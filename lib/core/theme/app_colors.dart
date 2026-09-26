@@ -10,42 +10,42 @@ class AppColors {
   static const Color mainColorFont = Color(0xff384354);
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color transparent = Colors.transparent;
-  static const Color primaryColor = Color(0xFF4FB3AB);
-  static const Color secondaryColor = Color(0xFF033D75);
+  static const Color primaryColor = Color(0xFF242A67);
+  static const Color secondaryColor = Color(0xFFCA9A2C);
   static Color dangerColor = const Color(0xffD64545);
   static Color purpleColor = const Color(0xff905bfe);
 
   static const MaterialColor primarySwatch = MaterialColor(
-    0xFF63C7BF,
+    0xFF242A67,
     <int, Color>{
-      50: Color(0xFFF0FAF9),
-      100: Color(0xFFD8F1EE),
-      200: Color(0xFFB1E4DF),
-      300: Color(0xFF8AD7D0),
-      400: Color(0xFF73CEC7),
-      500: Color(0xFF63C7BF),
-      600: Color(0xFF4FB3AB),
-      700: Color(0xFF40918A),
-      800: Color(0xFF357670),
-      900: Color(0xFF2B615C),
-      950: Color(0xFF163534),
+      50: Color(0xFFE8E9F0),
+      100: Color(0xFFC6C8DA),
+      200: Color(0xFFA0A4C2),
+      300: Color(0xFF7A80AA),
+      400: Color(0xFF5E6598),
+      500: Color(0xFF242A67),
+      600: Color(0xFF20255F),
+      700: Color(0xFF1B1F55),
+      800: Color(0xFF16194B),
+      900: Color(0xFF0D0F3A),
+      950: Color(0xFF070924),
     },
   );
 
   static const MaterialColor secondarySwatch = MaterialColor(
-    0xFF033D75,
+    0xFFCA9A2C,
     <int, Color>{
-      50: Color(0xFFEAF3FB),
-      100: Color(0xFFCFE1F4),
-      200: Color(0xFFA0C3E9),
-      300: Color(0xFF6EA4DD),
-      400: Color(0xFF458AD3),
-      500: Color(0xFF033D75),
-      600: Color(0xFF033665),
-      700: Color(0xFF022D55),
-      800: Color(0xFF022447),
-      900: Color(0xFF011C39),
-      950: Color(0xFF010F1F),
+      50: Color(0xFFFBF8EB),
+      100: Color(0xFFF5EFCC),
+      200: Color(0xFFECDD9C),
+      300: Color(0xFFE1C563),
+      400: Color(0xFFD6AE39),
+      500: Color(0xFFCA9A2C),
+      600: Color(0xFFAB7723),
+      700: Color(0xFF89581F),
+      800: Color(0xFF724721),
+      900: Color(0xFF623C21),
+      950: Color(0xFF391E0F),
     },
   );
 

@@ -40,7 +40,7 @@ class IconButtonWidget extends StatelessWidget {
                 : AppIcons.arrowBackEn),
         height: height,
         width: width,
-        color: iconColor ?? AppColors.secondaryColor,
+        color: iconColor ?? AppColors.primaryColor,
       ),
     );
   }

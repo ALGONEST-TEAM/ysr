@@ -93,8 +93,7 @@ class AddToCartOrFavoritesWidget extends ConsumerWidget {
                 },
                 bottonWidget: DefaultButtonWidget(
                   text: S.of(context).addToCart,
-                  background: AppColors.secondaryColor,
-                  height: 38.h,
+                  height: 40.h,
                   textSize: 12.4.sp,
                   isLoading: cartState.stateData == States.loading,
                   onPressed: () {

@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/state/check_state_in_get_api_data_widget.dart';
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/widgets/auto_size_text_widget.dart';
-import '../../../../../generated/l10n.dart';
 import '../riverpod/home_riverpod.dart';
 import '../widgets/app_bar_home_widget.dart';
 import '../widgets/loading_home_widget.dart';
-import '../widgets/offers_widget.dart';
 import '../widgets/sections_widget.dart';
 import '../widgets/tap_bar_widget.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
@@ -88,30 +84,12 @@ class _HomePageState extends ConsumerState<HomePage>
                   floatHeaderSlivers: false,
                   headerSliverBuilder: (context, innerBoxIsScrolled) {
                     return [
-                      if (state.data.offers!.isNotEmpty)
-                        SliverToBoxAdapter(
-                          child: OffersWidget(
-                            offers: state.data.offers ?? [],
-                          ),
-                        ),
-                    SliverToBoxAdapter(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w)
-                              .copyWith(top: 10.h),
-                          child: AutoSizeTextWidget(
-                            text: S.of(context).sections,
-                            colorText: AppColors.fontColor,
-                            fontSize: 11.4.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
                       SliverPersistentHeader(
                         pinned: true,
                         floating: false,
                         delegate: CollapsingTabBarHeaderWidget(
-                          minHeight: 46.h,
-                          maxHeight: 58.h,
+                          minHeight: 56.h,
+                          maxHeight: 60.h,
                           builder: (t) => TapBarWidget(
                             controller: _tab!,
                             titles: state.data.section!
@@ -130,6 +108,7 @@ class _HomePageState extends ConsumerState<HomePage>
                         uniqueKey: Key('tab_${section.id}'),
                         child: SectionOfCategoryInHomePage(
                           idSection: section.id!,
+                          offers: state.data.offers ?? [],
                           key: PageStorageKey('tab_${section.id}'),
                         ),
                       );

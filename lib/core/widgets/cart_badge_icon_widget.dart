@@ -26,7 +26,6 @@ class CartBadgeIconWidget extends ConsumerWidget {
         IconButtonWidget(
           icon: AppIcons.cartActive,
           height: 20.h,
-          iconColor: AppColors.secondaryColor,
           onPressed: () async {
             if (!Auth().loggedIn) {
               pressAgainToExit(

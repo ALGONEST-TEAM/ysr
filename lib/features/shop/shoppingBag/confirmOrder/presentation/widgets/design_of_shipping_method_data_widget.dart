@@ -67,9 +67,6 @@ class DesignOfShippingMethodDataWidget extends StatelessWidget {
           8.w.horizontalSpace,
           RadioWidget(
             selected: deliveryData.id.toString() == shippingMethodGroupValue,
-            border: false,
-            notSelectedColor: AppColors.scaffoldColor,
-            selectedColor: AppColors.secondaryColor,
             height: 15.4,
             width: 15.4,
           ),

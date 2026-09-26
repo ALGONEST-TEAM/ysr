@@ -40,8 +40,8 @@ class ProductPriceAndDiscountInTheCartWidget extends StatelessWidget {
             ),
           PriceAndCurrencyWidget(
             price: productPriceAfterDiscount,
-            fontSize1: 11.8.sp,
-            fontSize2: 8.sp,
+            fontSize1: 13.sp,
+            fontSize2: 9.sp,
           ),
         ],
       ),

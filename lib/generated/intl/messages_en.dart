@@ -56,6 +56,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allOrders": MessageLookupByLibrary.simpleMessage("All orders"),
+    "amountLabel": MessageLookupByLibrary.simpleMessage("Amount"),
+    "amountValidation": MessageLookupByLibrary.simpleMessage(
+      "Please enter the amount",
+    ),
     "appDescription": MessageLookupByLibrary.simpleMessage(
       "Safirah app is specialized in selling sportswear, providing championships and creating leagues. Our goal is to provide distinctive and high-quality service.",
     ),
@@ -72,6 +76,9 @@ class MessageLookup extends MessageLookupByLibrary {
           "Are you sure you want to delete these products?",
         ),
     "backToHome": MessageLookupByLibrary.simpleMessage("Back to home"),
+    "backToMyBookings": MessageLookupByLibrary.simpleMessage(
+      "Back to my orders",
+    ),
     "badGateway": MessageLookupByLibrary.simpleMessage("Bad gateway"),
     "badGateway2": MessageLookupByLibrary.simpleMessage(
       "Please try again shortly",
@@ -79,6 +86,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "big": MessageLookupByLibrary.simpleMessage("Big"),
     "bigOffers": MessageLookupByLibrary.simpleMessage("Big Offers"),
     "birthDate": MessageLookupByLibrary.simpleMessage("Birth date"),
+    "bookingConfirmed": MessageLookupByLibrary.simpleMessage(
+      "Your orders has been confirmed successfully, thank you.",
+    ),
     "canYouLeaveYourReview": MessageLookupByLibrary.simpleMessage(
       "Can you leave your review?",
     ),
@@ -124,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Confirm leaving the page",
     ),
     "confirmOrder": MessageLookupByLibrary.simpleMessage("Confirm order"),
+    "confirmPayment": MessageLookupByLibrary.simpleMessage("Confirm Payment"),
     "continueAsGuest": MessageLookupByLibrary.simpleMessage(
       "Continue as guest",
     ),
@@ -137,9 +148,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "createANewList": MessageLookupByLibrary.simpleMessage("Create a new list"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create account"),
     "createAccountDesc": MessageLookupByLibrary.simpleMessage(
-      "Register a new account to enjoy all services",
+      "Register a new account to enjoy all Safirah services",
     ),
-    "createAccountS": MessageLookupByLibrary.simpleMessage("Create an account"),
+    "createAccountS": MessageLookupByLibrary.simpleMessage(
+      "Create an account in Safirah",
+    ),
     "currency": MessageLookupByLibrary.simpleMessage("Currency"),
     "dailyNew": MessageLookupByLibrary.simpleMessage("Daily new"),
     "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -232,7 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginSuccessful": MessageLookupByLibrary.simpleMessage(
       "Logged in successfully",
     ),
-    "loginTitle": MessageLookupByLibrary.simpleMessage("Log in"),
+    "loginTitle": MessageLookupByLibrary.simpleMessage("Log in to Safirah"),
     "logoutSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Logout successfully",
     ),
@@ -282,6 +295,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
     "orderNumber": MessageLookupByLibrary.simpleMessage("Order number"),
     "orderStatus": MessageLookupByLibrary.simpleMessage("Order Status"),
+    "payJawaliCodeEmptyError": MessageLookupByLibrary.simpleMessage(
+      "Please enter the purchase code",
+    ),
+    "payJawaliCodeHint": MessageLookupByLibrary.simpleMessage("Purchase code"),
+    "payJawaliCodeLabel": MessageLookupByLibrary.simpleMessage("Purchase code"),
+    "payJawaliInstruction": MessageLookupByLibrary.simpleMessage(
+      "Enter the purchase code generated in the Jawali app",
+    ),
+    "payKuraimiCodeEmptyError": MessageLookupByLibrary.simpleMessage(
+      "Please enter the identification code",
+    ),
+    "payKuraimiCodeHint": MessageLookupByLibrary.simpleMessage(
+      "Identification code",
+    ),
+    "payKuraimiCodeLabel": MessageLookupByLibrary.simpleMessage(
+      "Identification code",
+    ),
+    "payKuraimiInstruction": MessageLookupByLibrary.simpleMessage(
+      "The identification number is generated from Al Kuraimi app settings on first setup",
+    ),
     "payment": MessageLookupByLibrary.simpleMessage("Payment"),
     "paymentDetails": MessageLookupByLibrary.simpleMessage("Payment details:"),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment method"),

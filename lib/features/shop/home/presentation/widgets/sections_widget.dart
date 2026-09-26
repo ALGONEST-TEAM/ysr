@@ -14,11 +14,18 @@ import '../riverpod/home_riverpod.dart';
 import 'category_widget.dart';
 import 'filter_products_home_widget.dart';
 import '../../../../../core/widgets/product/product_list_widget.dart';
-
+import '../../data/model/offers_model.dart';
+import 'offers_widget.dart';
+import 'top_vendors_widget.dart';
 class SectionOfCategoryInHomePage extends ConsumerStatefulWidget {
-  const SectionOfCategoryInHomePage({required this.idSection, super.key});
+  const SectionOfCategoryInHomePage({
+    required this.idSection,
+    this.offers = const [],
+    super.key,
+  });
 
   final int idSection;
+  final List<OffersModel> offers;
 
   @override
   ConsumerState<SectionOfCategoryInHomePage> createState() =>
@@ -103,8 +110,8 @@ class _SectionOfCategoryInHomePageState
                 right: 0,
                 child:
                 ShimmerWidget(
-                  baseColor: AppColors.secondaryColor.withValues(alpha: 0.08),
-                  highlightColor: AppColors.secondaryColor,
+                  baseColor: AppColors.primaryColor.withValues(alpha: 0.08),
+                  highlightColor: AppColors.primaryColor,
                   child: SvgPicture.asset(AppIcons.logoText, height: 54.h),
                 ),
               ),
@@ -139,6 +146,18 @@ class _SectionOfCategoryInHomePageState
           key: PageStorageKey('section_${widget.idSection}'),
           physics: const ClampingScrollPhysics(),
           slivers: [
+            if (widget.offers.isNotEmpty)
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    6.h.verticalSpace,
+                    OffersWidget(
+                      offers: widget.offers,
+                    ),
+                    2.h.verticalSpace,
+                  ],
+                ),
+              ),
             CategoryWidget(
               state: state,
               refresh: () async {
@@ -152,6 +171,15 @@ class _SectionOfCategoryInHomePageState
               },
             ),
             if (state.stateData != States.error) ...[
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    2.h.verticalSpace,
+                    TopVendorsWidget(categoryId: widget.idSection),
+                    2.h.verticalSpace,
+                  ],
+                ),
+              ),
               SliverToBoxAdapter(
                 child: FilterProductsHomeWidget(idSection: widget.idSection),
               ),

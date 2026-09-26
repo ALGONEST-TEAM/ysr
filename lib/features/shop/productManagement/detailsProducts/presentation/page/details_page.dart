@@ -155,6 +155,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage>
     final initialImageForShare = _initialImages.isNotEmpty ? _initialImages[0] : '';
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F7FA),
+      extendBodyBehindAppBar: true,
       appBar: AppBarOfDetailsWidget(
         imageForShare: initialImageForShare,
         descriptionForShare: state.data.description ?? '',
@@ -218,18 +220,21 @@ class _DetailsPageState extends ConsumerState<DetailsPage>
             )
           : null,
       floatingActionButton: _shouldShowWhatsAppButton(state)
-          ? FloatingActionButton(
-              heroTag: 'product-whatsapp-share-${widget.idProduct}',
-              onPressed: () => _openSupportWhatsApp(state.data),
-              backgroundColor: AppColors.secondaryColor,
-              foregroundColor: Colors.white,
-              child: SvgPicture.asset(
-                AppIcons.whatsapp,
-                width: 28,
-                color: AppColors.whiteColor,
-                height: 28,
+          ? Padding(
+            padding:  EdgeInsets.only(bottom: 12.h),
+            child: FloatingActionButton(
+                heroTag: 'product-whatsapp-share-${widget.idProduct}',
+                onPressed: () => _openSupportWhatsApp(state.data),
+                backgroundColor: AppColors.secondaryColor,
+                foregroundColor: Colors.white,
+                child: SvgPicture.asset(
+                  AppIcons.whatsapp,
+                  width: 28,
+                  color: AppColors.whiteColor,
+                  height: 28,
+                ),
               ),
-            )
+          )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

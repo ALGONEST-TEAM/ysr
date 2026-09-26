@@ -23,7 +23,7 @@ class BirthDatePickerWidget extends ConsumerWidget {
         AutoSizeTextWidget(
           text: "${S.of(context).birthDate} ${S.of(context).optional}",
           fontSize: 11.sp,
-          colorText: Colors.black87,
+          colorText: AppColors.primarySwatch.shade400,
         ),
         6.h.verticalSpace,
         InkWell(

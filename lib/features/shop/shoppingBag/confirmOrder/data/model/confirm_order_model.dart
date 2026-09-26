@@ -15,12 +15,13 @@ class ConfirmOrderModel {
     required this.deliveryTypeId,
     required this.copon,
     required this.printNotesById,
-
   });
 
   Map<String, dynamic> toJson() {
     final productsBody = cartProducts.map((p) {
-      final note = (p.isPrintable ?? 0) != 0 ? (printNotesById[p.id] ?? '') : '';
+      final note = (p.isPrintable ?? 0) != 0
+          ? (printNotesById[p.id] ?? '')
+          : '';
       return p.toJson(printNote: note);
     }).toList();
     return {

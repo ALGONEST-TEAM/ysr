@@ -20,24 +20,24 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   tabBarTheme: TabBarThemeData(
-    labelPadding: const EdgeInsets.symmetric(horizontal: 12),
-    dividerColor: AppColors.fontColor,
-    labelColor: Colors.black,
+    labelPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+    dividerColor: Colors.transparent,
+    labelColor: Colors.white,
     unselectedLabelColor: AppColors.fontColor,
-    indicatorColor: Colors.black,
-    overlayColor: MaterialStateProperty.resolveWith<Color?>(
-      (Set<MaterialState> states) {
+    indicatorColor: Colors.transparent,
+    overlayColor: WidgetStateProperty.resolveWith<Color?>(
+      (Set<WidgetState> states) {
         return AppColors.primaryColor.withValues(alpha: 0.1);
       },
     ),
-    unselectedLabelStyle: const TextStyle(fontFamily: "IBMPlexSansArabic"),
-    labelStyle: const TextStyle(fontFamily: "IBMPlexSansArabic"),
-    indicatorSize: TabBarIndicatorSize.label,
-    indicator: const UnderlineTabIndicator(
-      borderSide: BorderSide(width: 1.6, color: Colors.black),
-      insets: EdgeInsets.symmetric(vertical: 10),
+    unselectedLabelStyle: const TextStyle(fontFamily: "IBMPlexSansArabic", fontWeight: FontWeight.w500),
+    labelStyle: const TextStyle(fontFamily: "IBMPlexSansArabic", fontWeight: FontWeight.w700),
+    indicatorSize: TabBarIndicatorSize.tab,
+    indicator: BoxDecoration(
+      color: AppColors.primaryColor,
+      borderRadius: BorderRadius.circular(20),
     ),
-    dividerHeight: 0.23,
+    dividerHeight: 0,
     tabAlignment: TabAlignment.start,
   ),
   fontFamily: 'IBMPlexSansArabic',

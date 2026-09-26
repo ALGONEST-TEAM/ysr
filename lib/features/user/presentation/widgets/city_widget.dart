@@ -27,7 +27,7 @@ class CityWidget extends ConsumerWidget {
         AutoSizeTextWidget(
           text: S.of(context).city,
           fontSize: 11.5.sp,
-          colorText: Colors.black87,
+          colorText: AppColors.primarySwatch.shade400,
         ),
         6.h.verticalSpace,
         InkWell(
@@ -65,7 +65,7 @@ class CityWidget extends ConsumerWidget {
                 SvgPicture.asset(
                   AppIcons.arrowBottom,
                   height: 18.h,
-                  color: AppColors.primaryColor,
+                  color: AppColors.secondaryColor,
                 ),
               ],
             ),

@@ -47,9 +47,6 @@ class _ImageShowInDetailsComeFromCardWidgetState
           int newIndex = (_scrollController.offset / itemWidth).round() + 1;
           if (newIndex != currentIndex) {
             currentIndex = newIndex;
-            ref
-                .read(showNumberOfScrollImageProvider.notifier)
-                .setIndexColorImage(newIndex);
           }
           return true;
         },

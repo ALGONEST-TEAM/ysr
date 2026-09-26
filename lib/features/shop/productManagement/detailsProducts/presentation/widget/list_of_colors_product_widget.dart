@@ -87,9 +87,7 @@ class _ListOfColorsProductWidgetState
                               ..setIdColor(item.idColor!)
                               ..setNameColor(item.colorName!);
 
-                            ref
-                                .read(showNumberOfScrollImageProvider.notifier)
-                                .setIndexColorImage(1);
+
 
                             // إعادة تعيين المقاس إذا كان فيه قيمة
                             final sizeName = ref
@@ -126,10 +124,10 @@ class _ListOfColorsProductWidgetState
                             }
                           },
                           child: Container(
-                            height: 34.h,
-                            width: 36.w,
+                            height: 34.w,
+                            width: 34.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6.r),
+                              shape: BoxShape.circle,
                               color: hexToColor(item.colorHex!),
                               boxShadow: selectedIdColor == item.idColor
                                   ? [
@@ -138,24 +136,26 @@ class _ListOfColorsProductWidgetState
                                             ? AppColors.secondaryColor
                                             : hexToColor(item.colorHex!),
                                         spreadRadius: 1,
-                                      ),
-                                      const BoxShadow(
-                                        color: Colors.white,
-                                        spreadRadius: 0.5,
+                                        blurRadius: 4,
+                                        offset: const Offset(0, 0),
                                       ),
                                     ]
                                   : [],
                               border: Border.all(
-                                color: AppColors.greySwatch.shade100,
+                                color: selectedIdColor == item.idColor
+                                    ? AppColors.secondaryColor
+                                    : Colors.transparent,
+                                width: 2,
                               ),
                             ),
-                            child: item.image!.isEmpty
-                                ? const SizedBox.shrink()
-                                : OnlineImagesWidget(
-                                    imageUrl: item.image![0],
-                                    size: Size(36.w, 34.h),
-                                    borderRadius: 4.r,
-                                  ),
+                            child: selectedIdColor == item.idColor
+                                ? Icon(
+                                    Icons.check,
+                                    size: 20.sp,
+                                    color: _getContrastColor(
+                                        hexToColor(item.colorHex!)),
+                                  )
+                                : null,
                           ),
                         );
                       },
@@ -169,6 +169,10 @@ class _ListOfColorsProductWidgetState
         10.verticalSpace,
       ],
     );
+  }
+
+  Color _getContrastColor(Color color) {
+    return color.computeLuminance() > 0.5 ? Colors.black : Colors.white;
   }
 }
 

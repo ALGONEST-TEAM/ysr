@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -28,10 +29,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -1645,9 +1645,14 @@ class S {
     );
   }
 
-  /// `Log in`
+  /// `Log in to Safirah`
   String get loginTitle {
-    return Intl.message('Log in', name: 'loginTitle', desc: '', args: []);
+    return Intl.message(
+      'Log in to Safirah',
+      name: 'loginTitle',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Using phone number`
@@ -1725,20 +1730,20 @@ class S {
     );
   }
 
-  /// `Create an account`
+  /// `Create an account in Safirah`
   String get createAccountS {
     return Intl.message(
-      'Create an account',
+      'Create an account in Safirah',
       name: 'createAccountS',
       desc: '',
       args: [],
     );
   }
 
-  /// `Register a new account to enjoy all services`
+  /// `Register a new account to enjoy all Safirah services`
   String get createAccountDesc {
     return Intl.message(
-      'Register a new account to enjoy all services',
+      'Register a new account to enjoy all Safirah services',
       name: 'createAccountDesc',
       desc: '',
       args: [],
@@ -2224,6 +2229,133 @@ class S {
     return Intl.message(
       'Check the server address (Base URL) and try again',
       name: 'invalidApiUrl2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // skipped getter for the '--------payment-----------' key
+
+  /// `Amount`
+  String get amountLabel {
+    return Intl.message('Amount', name: 'amountLabel', desc: '', args: []);
+  }
+
+  /// `Please enter the amount`
+  String get amountValidation {
+    return Intl.message(
+      'Please enter the amount',
+      name: 'amountValidation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The identification number is generated from Al Kuraimi app settings on first setup`
+  String get payKuraimiInstruction {
+    return Intl.message(
+      'The identification number is generated from Al Kuraimi app settings on first setup',
+      name: 'payKuraimiInstruction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identification code`
+  String get payKuraimiCodeLabel {
+    return Intl.message(
+      'Identification code',
+      name: 'payKuraimiCodeLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identification code`
+  String get payKuraimiCodeHint {
+    return Intl.message(
+      'Identification code',
+      name: 'payKuraimiCodeHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the identification code`
+  String get payKuraimiCodeEmptyError {
+    return Intl.message(
+      'Please enter the identification code',
+      name: 'payKuraimiCodeEmptyError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the purchase code generated in the Jawali app`
+  String get payJawaliInstruction {
+    return Intl.message(
+      'Enter the purchase code generated in the Jawali app',
+      name: 'payJawaliInstruction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase code`
+  String get payJawaliCodeLabel {
+    return Intl.message(
+      'Purchase code',
+      name: 'payJawaliCodeLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase code`
+  String get payJawaliCodeHint {
+    return Intl.message(
+      'Purchase code',
+      name: 'payJawaliCodeHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the purchase code`
+  String get payJawaliCodeEmptyError {
+    return Intl.message(
+      'Please enter the purchase code',
+      name: 'payJawaliCodeEmptyError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Payment`
+  String get confirmPayment {
+    return Intl.message(
+      'Confirm Payment',
+      name: 'confirmPayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your orders has been confirmed successfully, thank you.`
+  String get bookingConfirmed {
+    return Intl.message(
+      'Your orders has been confirmed successfully, thank you.',
+      name: 'bookingConfirmed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back to my orders`
+  String get backToMyBookings {
+    return Intl.message(
+      'Back to my orders',
+      name: 'backToMyBookings',
       desc: '',
       args: [],
     );

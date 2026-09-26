@@ -1,9 +1,8 @@
-import 'package:dartz/dartz.dart';
 import '../../../../../../core/network/remote_request.dart';
 import '../../../../../../core/network/urls.dart';
 import '../../../cart/data/model/cart_model.dart';
 import '../model/confirm_order_data_model.dart';
-import '../model/confirm_order_model.dart';
+import '../model/delivery_types_model.dart';
 
 class ConfirmOrderRemoteDataSource {
   // fetch order confirmation data with coupon check
@@ -23,11 +22,13 @@ class ConfirmOrderRemoteDataSource {
     return ConfirmOrderDataModel.fromJson(response.data['data']);
   }
 
-  Future<Unit> confirmOrder(ConfirmOrderModel confirmOrderModel) async {
-    await RemoteRequest.postData(
-      path: AppURL.confirmOrder,
-      data: confirmOrderModel.toJson(),
+  Future<List<DeliveryTypesModel>> fetchDeliveryType({int? addressId}) async {
+    final payload = {'address_id': addressId};
+    final response = await RemoteRequest.postData(
+      path: AppURL.getDeliveryType,
+      data: payload,
     );
-    return Future.value(unit);
+
+    return DeliveryTypesModel.fromJsonDeliveryList(response.data['data']);
   }
 }

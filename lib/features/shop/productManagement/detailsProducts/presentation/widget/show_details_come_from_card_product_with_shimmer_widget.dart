@@ -7,7 +7,6 @@ import '../../../../../../core/widgets/price_and_currency_widget.dart';
 import '../../../../../../core/widgets/shimmer_widget.dart';
 import '../state_mangment/riverpod_details.dart';
 import 'image_show_in_details_come_from_card_widget.dart';
-import 'number_of_image_widget.dart';
 
 class ShowDetailsComeFromCardProductWithShimmerWidget extends StatelessWidget {
   const ShowDetailsComeFromCardProductWithShimmerWidget({
@@ -27,16 +26,12 @@ class ShowDetailsComeFromCardProductWithShimmerWidget extends StatelessWidget {
       child: Consumer(
         builder: (context, ref, child) {
           var indexColorImage = ref.watch(changeIndexOfColorImageAndSizeProvider);
-          var indexImage = ref.watch(showNumberOfScrollImageProvider);
 
           return Column(
             children: [
               ImageShowInDetailsComeFromCardWidget(
                 productData: image,
                 indexColorImage: indexColorImage,
-              ),
-              NumberOfImageWidget(
-                numImageAndIndex: "${image.length} / ${indexImage ?? 1}",
               ),
               Container(
                 width: double.infinity,

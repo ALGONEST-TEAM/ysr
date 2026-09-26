@@ -1,4 +1,5 @@
 import 'cart_product_model.dart';
+import '../../../../home/data/model/vendor_model.dart';
 
 class CartModel {
   final int id;
@@ -20,6 +21,8 @@ class CartModel {
   final int? productPrintingPrice;
   final int? printingPrice;
   final int? isPrintable;
+  final int? vendorId;
+  final VendorModel? vendor;
 
   CartModel({
     required this.id,
@@ -41,6 +44,8 @@ class CartModel {
     this.productPrintingPrice,
     this.printingPrice,
     this.isPrintable,
+    this.vendorId,
+    this.vendor,
   });
 
   factory CartModel.fromJson(Map<String, dynamic> json) {
@@ -64,6 +69,8 @@ class CartModel {
       productPrintingPrice: json['product_printing_price'],
       printingPrice: json['printing_price'],
       isPrintable: json['is_printable'],
+      vendorId: json['vendor_id'] as int?,
+      vendor: json['vendor'] != null ? VendorModel.fromJson(json['vendor']) : null,
     );
   }
 
@@ -86,6 +93,7 @@ class CartModel {
         numberName: '',
         productPrintingPrice: 0,
         printingPrice: 0,
+        vendorId: 0,
       );
 
   static List<CartModel> fromJsonList(List json) {
@@ -104,6 +112,8 @@ class CartModel {
       'is_printable': isPrintable,
       'quantity': quantity,
       "print_note": (printNote ?? '').trim(),
+      'vendor_id': vendorId,
+      'vendor': vendor?.toJson(),
     };
   }
 
@@ -126,6 +136,8 @@ class CartModel {
     int? isPrintable,
     int? productPrintingPrice,
     int? printingPrice,
+    int? vendorId,
+    VendorModel? vendor,
   }) {
     return CartModel(
       id: id ?? this.id,
@@ -147,6 +159,8 @@ class CartModel {
       isPrintable: isPrintable ?? this.isPrintable,
       productPrintingPrice: productPrintingPrice ?? this.productPrintingPrice,
       printingPrice: printingPrice ?? this.printingPrice,
+      vendorId: vendorId ?? this.vendorId,
+      vendor: vendor ?? this.vendor,
     );
   }
 
@@ -171,6 +185,8 @@ class CartModel {
         isPrintable: updatedProduct.isPrintable,
         productPrintingPrice: updatedProduct.productPrintingPrice,
         printingPrice: updatedProduct.printingPrice,
+        vendorId: updatedProduct.vendorId,
+        vendor: updatedProduct.vendor,
       );
     }
     return this;

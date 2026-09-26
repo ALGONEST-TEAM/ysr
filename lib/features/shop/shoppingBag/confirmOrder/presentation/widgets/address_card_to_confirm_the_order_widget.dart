@@ -43,9 +43,7 @@ class AddressCardToConfirmTheOrderWidget extends ConsumerWidget {
             ),
             child: Row(
               children: [
-                SvgPicture.asset(
-                  AppIcons.cardAddress,
-                ),
+                SvgPicture.asset(AppIcons.cardAddress),
                 8.w.horizontalSpace,
                 Flexible(
                   child: SizedBox(

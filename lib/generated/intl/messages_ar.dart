@@ -52,8 +52,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "addressesEmpty": MessageLookupByLibrary.simpleMessage("عناوينك فارغة."),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "allOrders": MessageLookupByLibrary.simpleMessage("جميع الطلبات"),
+    "amountLabel": MessageLookupByLibrary.simpleMessage("المبلغ"),
+    "amountValidation": MessageLookupByLibrary.simpleMessage(
+      "يرجى إدخال المبلغ",
+    ),
     "appDescription": MessageLookupByLibrary.simpleMessage(
-      "تطبيق هو تطبيق متخصص في بيع الملابس الرياضية من أرقى وأجود الخامات، وإنشاء الدوريات العالية من هدفنا أن نوفر خدمة متميزة وجودة عالية.",
+      "تطبيق صافرة يجمع بين بيع الملابس الرياضية عالية الجودة، وإنشاء وإدارة الدوريات، والمشاركة في مسابقات توقع نتائج المباريات، لتقديم تجربة رياضية متكاملة وممتعة للمستخدمين.",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("صــــافرة"),
     "applicationLanguage": MessageLookupByLibrary.simpleMessage("لغة التطبيق"),
@@ -66,6 +70,9 @@ class MessageLookup extends MessageLookupByLibrary {
           "هل أنت متأكد أنك تريد حذف هذه المنتجات؟",
         ),
     "backToHome": MessageLookupByLibrary.simpleMessage("العودة إلى الرئيسية"),
+    "backToMyBookings": MessageLookupByLibrary.simpleMessage(
+      "العودة إلى طلباتي",
+    ),
     "badGateway": MessageLookupByLibrary.simpleMessage("بوابة غير صالحة"),
     "badGateway2": MessageLookupByLibrary.simpleMessage(
       "يرجى إعادة المحاولة بعد قليل",
@@ -73,6 +80,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "big": MessageLookupByLibrary.simpleMessage("كبير"),
     "bigOffers": MessageLookupByLibrary.simpleMessage("عروض كبرى"),
     "birthDate": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
+    "bookingConfirmed": MessageLookupByLibrary.simpleMessage(
+      "تم تأكيد طلبك بنجاح، شكرًا لك.",
+    ),
     "canYouLeaveYourReview": MessageLookupByLibrary.simpleMessage(
       "هل يمكنك ترك رأيك؟",
     ),
@@ -118,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "تأكيد مغادرة الصفحة",
     ),
     "confirmOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
+    "confirmPayment": MessageLookupByLibrary.simpleMessage("تأكيد الدفع"),
     "continueAsGuest": MessageLookupByLibrary.simpleMessage("المتابعة كزائر"),
     "copy": MessageLookupByLibrary.simpleMessage("نسخ"),
     "copyToList": MessageLookupByLibrary.simpleMessage("نسخ إلى القائمة"),
@@ -129,9 +140,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "createANewList": MessageLookupByLibrary.simpleMessage("إنشاء قائمة جديدة"),
     "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "createAccountDesc": MessageLookupByLibrary.simpleMessage(
-      "سجل حساب جديد للاستفادة من جميع الخدمات",
+      "سجل حساب جديد للاستفادة من جميع خدمات صافرة",
     ),
-    "createAccountS": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+    "createAccountS": MessageLookupByLibrary.simpleMessage(
+      "إنشاء حساب في صافرة",
+    ),
     "currency": MessageLookupByLibrary.simpleMessage("العملة"),
     "dailyNew": MessageLookupByLibrary.simpleMessage("الجديد اليومي"),
     "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
@@ -228,7 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginSuccessful": MessageLookupByLibrary.simpleMessage(
       "تم تسجيل الدخول بنجاح",
     ),
-    "loginTitle": MessageLookupByLibrary.simpleMessage("سجل الدخول"),
+    "loginTitle": MessageLookupByLibrary.simpleMessage("سجل الدخول الى صافرة"),
     "logoutSuccessfully": MessageLookupByLibrary.simpleMessage(
       "تم تسجيل الخروج بنجاح",
     ),
@@ -274,6 +287,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
     "orderNumber": MessageLookupByLibrary.simpleMessage("رقم الطلب"),
     "orderStatus": MessageLookupByLibrary.simpleMessage("حالة الطلب"),
+    "payJawaliCodeEmptyError": MessageLookupByLibrary.simpleMessage(
+      "يرجى إدخال كود الشراء",
+    ),
+    "payJawaliCodeHint": MessageLookupByLibrary.simpleMessage("كود الشراء"),
+    "payJawaliCodeLabel": MessageLookupByLibrary.simpleMessage("كود الشراء"),
+    "payJawaliInstruction": MessageLookupByLibrary.simpleMessage(
+      "أدخل كود الشراء المنشأ في تطبيق جوالي",
+    ),
+    "payKuraimiCodeEmptyError": MessageLookupByLibrary.simpleMessage(
+      "يرجى إدخال رمز التعريف",
+    ),
+    "payKuraimiCodeHint": MessageLookupByLibrary.simpleMessage("رمز التعريف"),
+    "payKuraimiCodeLabel": MessageLookupByLibrary.simpleMessage("رمز التعريف"),
+    "payKuraimiInstruction": MessageLookupByLibrary.simpleMessage(
+      "رقم التعريف يُولَّد من إعدادات تطبيق الكريمي لأول مرة",
+    ),
     "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
     "paymentDetails": MessageLookupByLibrary.simpleMessage("تفاصيل الدفع:"),
     "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),

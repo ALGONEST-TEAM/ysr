@@ -74,7 +74,7 @@ class _ResendCodeWidgetState extends ConsumerState<ResendCodeWidget> {
         AutoSizeTextWidget(
           text: S.of(context).resendCodeIN,
           fontSize: 12.sp,
-          colorText: AppColors.fontColor,
+          colorText: AppColors.fontColor2,
           textAlign: TextAlign.center,
         ),
         canResend ? 6.w.horizontalSpace : 3.w.horizontalSpace,
@@ -99,18 +99,33 @@ class _ResendCodeWidgetState extends ConsumerState<ResendCodeWidget> {
                         S.of(context).resend,
                         style: TextStyle(
                           fontSize: 12.sp,
-                          color: AppColors.primaryColor,
+                          color: AppColors.secondaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   )
-            : AutoSizeTextWidget(
-                text:
-                    "00:${countDown < 10 ? "0${countDown.toString()}" : countDown.toString()}",
-                colorText: AppColors.primaryColor,
-                fontSize: 11.5.sp,
-                fontWeight: FontWeight.w700,
+            : Row(
+                children: [
+                  AutoSizeTextWidget(
+                    text:
+                        "00:${countDown < 10 ? "0${countDown.toString()}" : countDown.toString()}",
+                    colorText: AppColors.primaryColor,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  8.w.horizontalSpace,
+                  SizedBox(
+                    width: 18.w,
+                    height: 18.w,
+                    child: CircularProgressIndicator(
+                      value: countDown / 60,
+                      strokeWidth: 2.5,
+                      color: AppColors.secondaryColor,
+                      backgroundColor: Colors.grey.withValues(alpha: 0.2),
+                    ),
+                  ),
+                ],
               ),
       ],
     );

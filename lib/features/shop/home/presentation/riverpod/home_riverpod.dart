@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/state/data_state.dart';
 import '../../../../../core/state/state.dart';
 import '../../../home/data/model/section_with_product_data.dart';
 import '../../../productManagement/detailsProducts/data/model/paginated_products_list_data.dart';
+import '../../data/data_source/mock_home_data_source.dart';
 import '../../data/model/offer_products_model.dart';
+import '../../data/model/offers_model.dart';
 import '../../data/model/sections_and_offers_data.dart';
 import '../../data/reposaitory/reposaitories.dart';
+import '../../../productManagement/detailsProducts/data/model/product_data.dart';
+import '../../data/model/vendor_model.dart';
 
 final homeTabIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -171,3 +174,17 @@ class GetOfferProductsController
     );
   }
 }
+
+// --- YSR Mock Data Providers ---
+
+final categoryBannersProvider = StateProvider.family<List<OffersModel>, int>((ref, categoryId) {
+  return MockHomeDataSource.getBannersForCategory(categoryId);
+});
+
+final categoryVendorsProvider = StateProvider.family<List<VendorModel>, int>((ref, categoryId) {
+  return MockHomeDataSource.getTopVendorsForCategory(categoryId);
+});
+
+final categoryFlashDealsProvider = StateProvider.family<List<ProductData>, int>((ref, categoryId) {
+  return MockHomeDataSource.getFlashDealsForCategory(categoryId);
+});

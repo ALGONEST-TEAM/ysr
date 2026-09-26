@@ -74,7 +74,7 @@ class PriceAndCurrencyWidget extends ConsumerWidget {
           padding: EdgeInsets.only(top: 2.h),
           child: AutoSizeTextWidget(
             text: currencyState.toString(),
-            colorText: colorText2 ?? AppColors.primaryColor,
+            colorText: colorText2 ?? AppColors.secondaryColor,
             fontSize: fontSize2 ?? 8.5.sp,
             fontWeight: textWeight2 ?? FontWeight.w500,
             minFontSize: 8,

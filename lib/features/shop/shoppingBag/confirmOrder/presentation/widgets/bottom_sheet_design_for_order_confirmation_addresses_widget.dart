@@ -34,10 +34,7 @@ class BottomSheetDesignForOrderConfirmationAddressesWidget
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListOfAddressesToConfirmTheOrderWidget(
-            address: address,
-            form: form,
-          ),
+          ListOfAddressesToConfirmTheOrderWidget(address: address, form: form),
           8.h.verticalSpace,
           DefaultButtonWidget(
             text: S.of(context).addANewAddress,
@@ -55,7 +52,6 @@ class BottomSheetDesignForOrderConfirmationAddressesWidget
                         .getData(products: products, mode: FetchMode.refresh);
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-
                   },
                   locationIsEmpty: true,
                 ),

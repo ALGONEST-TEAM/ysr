@@ -51,22 +51,6 @@ final changeIndexOfColorImageAndSizeProvider =
       return ChangeIndexOfColorImageAndSizeNotifier();
     });
 
-//////////////////////////////////////////////////////////////////////////////////////////
-class ShowNumberOfScrollImageNotifier extends StateNotifier<int?> {
-  ShowNumberOfScrollImageNotifier() : super(null);
-
-  void setIndexColorImage(int num) {
-    state = num;
-  }
-}
-
-final showNumberOfScrollImageProvider =
-    StateNotifierProvider.autoDispose<ShowNumberOfScrollImageNotifier, int?>((
-      ref,
-    ) {
-      return ShowNumberOfScrollImageNotifier();
-    });
-
 //////////////////////////////////////////////////////
 final changeIndexOfSizeProvider = StateProvider.autoDispose.family<int?, int>((
   ref,

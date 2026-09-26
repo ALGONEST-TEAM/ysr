@@ -16,7 +16,8 @@ import '../widgets/birth_date_picker_widget.dart';
 import '../widgets/city_widget.dart';
 import '../widgets/gender_selection_widget.dart';
 import '../widgets/name_and_email_widget.dart';
-import '../widgets/sign_up_header_widget.dart';
+import '../widgets/wavy_header_widget.dart';
+import '../../../../core/widgets/auto_size_text_widget.dart';
 
 class SignUpPage extends ConsumerStatefulWidget {
   const SignUpPage({super.key});
@@ -44,24 +45,45 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: const SignUpAppBarWidget(),
+        backgroundColor: const Color(0xFFF5F7FA),
         body: Form(
           key: formKey,
-          child: SafeArea(
-            top: false,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SignUpHeaderWidget(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14.w),
-                    child: Column(
-                      children: [
-                        NameAndEmailWidget(name: _nameController),
-                        const BirthDatePickerWidget(),
-                        12.h.verticalSpace,
-                        const GenderPickerWidget(),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const WavyHeaderWidget(
+                  height: 0.31,
+                  showBackButton: true,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      4.h.verticalSpace,
+                      Center(
+                        child: AutoSizeTextWidget(
+                          text: S.of(context).createAccountS,
+                          fontSize: 26.sp,
+                          fontWeight: FontWeight.w900,
+                          colorText: AppColors.primaryColor,
+                        ),
+                      ),
+                      6.h.verticalSpace,
+                      Center(
+                        child: AutoSizeTextWidget(
+                          text: "سجل الآن لتجربة تسوق فريدة",
+                          fontSize: 14.sp,
+                          colorText: AppColors.fontColor2,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      12.h.verticalSpace,
+                      NameAndEmailWidget(name: _nameController),
+                      const BirthDatePickerWidget(),
+                      12.h.verticalSpace,
+                      const GenderPickerWidget(),
                         const CityWidget(),
                         26.h.verticalSpace,
                         CheckStateInPostApiDataWidget(
@@ -76,7 +98,11 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           },
                           bottonWidget: DefaultButtonWidget(
                             text: S.of(context).createAccount,
-                            textSize: 13.6.sp,
+                            textSize: 14.8.sp,
+                            gradientColors: [
+                              AppColors.primaryColor,
+                              const Color(0xFF384399),
+                            ],
                             isLoading: signUpState.stateData == States.loading,
                             onPressed: () async {
                               final isValid = formKey.currentState!.validate();
@@ -113,11 +139,11 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                             },
                           ),
                         ),
+                        24.h.verticalSpace,
                       ],
                     ),
                   ),
                 ],
-              ),
             ),
           ),
         ),

@@ -19,6 +19,7 @@ import 'features/shop/productManagement/detailsProducts/data/model/color_data.da
 import 'features/shop/productManagement/detailsProducts/data/model/discount_model.dart';
 import 'features/shop/productManagement/detailsProducts/data/model/paginated_products_list_data.dart';
 import 'features/shop/productManagement/detailsProducts/data/model/product_data.dart';
+import 'features/user/presentation/pages/log_in_page.dart';
 import 'generated/l10n.dart';
 import 'services/auth/auth.dart';
 
@@ -158,6 +159,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         ],
         theme: lightTheme,
         home: BottomNavigationBarWidget()
+        // home: LogInPage(),
       ),
     );
   }

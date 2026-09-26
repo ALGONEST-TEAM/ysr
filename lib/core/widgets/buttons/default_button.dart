@@ -23,8 +23,12 @@ class DefaultButtonWidget extends StatelessWidget {
   final bool? withIcon;
 
   final String? icon;
+  final IconData? iconData;
   final Color? iconColor;
   final double? iconHeight;
+  final List<Color>? gradientColors;
+  final AlignmentGeometry? gradientBegin;
+  final AlignmentGeometry? gradientEnd;
 
   const DefaultButtonWidget({
     super.key,
@@ -43,8 +47,12 @@ class DefaultButtonWidget extends StatelessWidget {
     this.border,
     this.withIcon = false,
     this.icon,
+    this.iconData,
     this.iconColor,
     this.iconHeight,
+    this.gradientColors,
+    this.gradientBegin,
+    this.gradientEnd,
   });
 
   @override
@@ -53,10 +61,17 @@ class DefaultButtonWidget extends StatelessWidget {
       opacity: isLoading == true ? 0.5 : 1,
       child: Container(
         width: width,
-        height: height ?? 42.h,
+        height: height ?? 40.h,
         decoration: BoxDecoration(
-          color: background ?? AppColors.secondaryColor,
-          borderRadius: BorderRadius.circular(borderRadius ?? 8.r),
+          color: gradientColors == null ? (background ?? AppColors.primaryColor) : null,
+          gradient: gradientColors != null
+              ? LinearGradient(
+                  colors: gradientColors!,
+                  begin: gradientBegin ?? Alignment.centerRight,
+                  end: gradientEnd ?? Alignment.centerLeft,
+                )
+              : null,
+          borderRadius: BorderRadius.circular(borderRadius ?? 12.r),
           border: border ??
               Border.all(
                 color: Colors.transparent,
@@ -65,7 +80,7 @@ class DefaultButtonWidget extends StatelessWidget {
         ),
         child: Center(
           child: MaterialButton(
-            height: height ?? 42.h,
+            height: height ?? 40.h,
             minWidth: double.infinity,
             onPressed: isLoading == true ? null : onPressed,
             child: isLoading == true
@@ -90,11 +105,22 @@ class DefaultButtonWidget extends StatelessWidget {
                         visible: withIcon == true,
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 6.w),
-                          child: SvgPicture.asset(
-                            icon ?? '',
-                            height: iconHeight,
-                            color: iconColor,
-                          ),
+                          child: iconData != null
+                              ? Icon(
+                                  iconData,
+                                  size: iconHeight ?? 18.sp,
+                                  color: iconColor ?? (textColor ?? Colors.white),
+                                )
+                              : SvgPicture.asset(
+                                  icon ?? '',
+                                  height: iconHeight,
+                                  colorFilter: iconColor != null
+                                      ? ColorFilter.mode(
+                                          iconColor!,
+                                          BlendMode.srcIn,
+                                        )
+                                      : null,
+                                ),
                         ),
                       ),
                     ],

@@ -22,14 +22,18 @@ class ConfirmOrderDataModel {
   factory ConfirmOrderDataModel.fromJson(Map<String, dynamic> json) {
     return ConfirmOrderDataModel(
       userAddresses: AddressModel.fromJsonList(json['user_addresses'] ?? []),
-      paymentMethods:
-          PaymentMethodsModel.fromJsonPayList(json['payment_methods'] ?? []),
-      deliveryTypes:
-          DeliveryTypesModel.fromJsonDeliveryList(json['delivery_types'] ?? []),
+      paymentMethods: PaymentMethodsModel.fromJsonPayList(
+        json['payment_methods'] ?? [],
+      ),
+      deliveryTypes: DeliveryTypesModel.fromJsonDeliveryList(
+        json['delivery_types'] ?? [],
+      ),
       products: CartModel.fromJsonList(json['products'] ?? []),
       billData: json['order_summary'] == null
           ? null
-          : OrdersBillData.fromJson(json['order_summary'] as Map<String, dynamic>),
+          : OrdersBillData.fromJson(
+              json['order_summary'] as Map<String, dynamic>,
+            ),
     );
   }
 

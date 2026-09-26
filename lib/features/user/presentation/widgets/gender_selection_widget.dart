@@ -23,7 +23,7 @@ class GenderPickerWidget extends ConsumerWidget {
         AutoSizeTextWidget(
           text: S.of(context).gender,
           fontSize: 11.5.sp,
-          colorText: Colors.black87,
+          colorText: AppColors.primarySwatch.shade400,
         ),
         6.h.verticalSpace,
         InkWell(
@@ -64,7 +64,7 @@ class GenderPickerWidget extends ConsumerWidget {
                 SvgPicture.asset(
                   AppIcons.arrowBottom,
                   height: 18.h,
-                  color: AppColors.primaryColor,
+                  color: AppColors.secondaryColor,
                 ),
               ],
             ),

@@ -28,7 +28,7 @@ class NameAndEmailWidget extends StatelessWidget {
         AutoSizeTextWidget(
           text: S.of(context).name,
           fontSize: 11.sp,
-          colorText: Colors.black87,
+          colorText: AppColors.primarySwatch.shade400,
         ),
         6.h.verticalSpace,
         TextFormFieldWidget(

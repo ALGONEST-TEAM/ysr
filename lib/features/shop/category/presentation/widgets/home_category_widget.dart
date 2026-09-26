@@ -10,69 +10,12 @@ import '../pages/subcategory_product_filter_page.dart';
 class HomeCategoryWidget extends ConsumerWidget {
   final String image;
   final String name;
-  final int idCategory;
-
-  const HomeCategoryWidget(
-      {super.key,
-      required this.name,
-      required this.image,
-      required this.idCategory
-      });
-
-  @override
-  Widget build(BuildContext context, ref) {
-    return InkWell(
-      onTap: () {
-        navigateTo(
-          context,
-          SubcategoryProductFilterPage(
-            idCategory: idCategory,
-            nameCategoryForHintSearch: name,
-            isSearchPage: false,
-          ),
-        );
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 3.w,vertical: 2.h),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6.r),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            OnlineImagesWidget(
-              imageUrl: image,
-              circularImage: true,
-              circularRadius: 38.sp,
-              size: Size(34.w, 34.h),
-            ),
-            4.w.horizontalSpace,
-            Flexible(
-              child: AutoSizeTextWidget(
-                text: name,
-                fontSize: 10.2.sp,
-                fontWeight: FontWeight.w500,
-                colorText: AppColors.fontColor,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            4.w.horizontalSpace,
-          ],
-        ),
-      ),
-    );
-  }
-}
-class CircleCardForCategoriesWidget extends ConsumerWidget {
-  final String image;
-  final String name;
   final double? circularRadius;
   final VoidCallback? onPressed;
   final int idCategory;
 
   //final List<CategoryData> category;
-  const CircleCardForCategoriesWidget(
+  const HomeCategoryWidget(
       {super.key,
         required this.name,
         //required this.category,
@@ -85,6 +28,7 @@ class CircleCardForCategoriesWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+
     return InkWell(
       onTap: () {
         navigateTo(
@@ -96,38 +40,62 @@ class CircleCardForCategoriesWidget extends ConsumerWidget {
           ),
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(14.r),
-            border: Border.all(color: Colors.grey.shade400,width: 0.1)
-        ),
-        height: 90.h,
-
-        width: 90.w,
+      borderRadius: BorderRadius.circular(12.r),
+      child: SizedBox(
+        width: 70.w,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OnlineImagesWidget(
-              imageUrl: image,
-              circularImage: true,
-              circularRadius: circularRadius ?? 28.sp,
-              backgroundColor: Colors.transparent,
-              size: Size(44.w, 44.h),
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: AutoSizeTextWidget(
-                  text: name,
-                  fontSize: 9.4.sp,
-                  fontWeight: FontWeight.w500,
-                  maxLines: 2,
-                  minFontSize: 8,
-                  textAlign: TextAlign.center,
+            Container(
+              padding: EdgeInsets.all(1.r),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.primaryColor.withValues(alpha: 0.25),
+                    AppColors.secondaryColor.withValues(alpha: 0.25),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.04),
+                    blurRadius: 8,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+                child: ClipOval(
+                  child: OnlineImagesWidget(
+                    imageUrl: image,
+                    circularImage: true,
+                    circularRadius: circularRadius ?? 28.sp,
+                    backgroundColor: Colors.transparent,
+                    size: Size(50.w, 50.h),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            4.h.verticalSpace,
+            // Category Title
+            Flexible(
+              child: AutoSizeTextWidget(
+                text: name,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w600,
+                colorText: AppColors.fontColor,
+                maxLines: 2,
+                minFontSize: 9,
+                textAlign: TextAlign.center,
               ),
             ),
           ],

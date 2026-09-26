@@ -8,7 +8,6 @@ import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/widgets/auto_size_text_widget.dart';
 import '../../../../../../core/widgets/online_images_widget.dart';
 import '../riverpod/cart_riverpod.dart';
-import 'cancel_printing_widget.dart';
 import 'check_box_for_cart_products_widget.dart';
 import 'color_and_size_design_for_cart_card_widget.dart';
 import 'product_price_and_discount_in_the_cart_widget.dart';
@@ -36,32 +35,24 @@ class CartCardWidget extends ConsumerWidget {
     var cartStateNotifier = ref.watch(cartProvider.notifier);
 
     return Container(
-      margin: EdgeInsets.only(bottom: 8.h),
-      padding: EdgeInsets.symmetric(vertical: 6.h),
-      decoration: BoxDecoration(
-        color: AppColors.whiteColor,
-        borderRadius: BorderRadius.circular(8.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: .02),
-            blurRadius: 1.r,
-          ),
-        ],
-      ),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
+      decoration: const BoxDecoration(color: Colors.transparent),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          1.6.w.horizontalSpace,
+          1.6.horizontalSpace,
           CheckBoxForCartProductsWidget(
-            value: cartStateNotifier.selectedProducts
-                .any((product) => product.id == cartProductState.id),
+            value: cartStateNotifier.selectedProducts.any(
+              (product) => product.id == cartProductState.id,
+            ),
             onChanged: (isChecked) {
               cartStateNotifier.toggleProductSelection(
                 isChecked ?? false,
                 cartProductState,
               );
             },
+            color: AppColors.secondaryColor,
           ),
           OnlineImagesWidget(
             imageUrl: cartProductState.images.toString(),
@@ -76,6 +67,7 @@ class CartCardWidget extends ConsumerWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
                       child: AutoSizeTextWidget(
@@ -86,11 +78,36 @@ class CartCardWidget extends ConsumerWidget {
                         colorText: AppColors.mainColorFont,
                       ),
                     ),
-                    2.w.horizontalSpace,
-                    Visibility(
-                      visible: cartProductState.isPrintable == 1,
-                      child: CancelPrintingWidget(onConfirm: onCancelPrinting),
+
+                    // 2.horizontalSpace,
+                    InkWell(
+                      onTap: () => onDelete(),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6.w,
+                          vertical: 2,
+                        ),
+
+                        color: Colors.transparent,
+                        child: SvgPicture.asset(
+                          AppIcons.cartDelete,
+                          height: 21.h,
+                        ),
+                      ),
                     ),
+                    // 6.horizontalSpace,
+
+                    // Row(
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   children: [
+                    //     Visibility(
+                    //       visible: cartProductState.isPrintable == 1,
+                    //       child: CancelPrintingWidget(onConfirm: onCancelPrinting),
+                    //     ),
+                    //     if (cartProductState.isPrintable == 1) 4.w.horizontalSpace,
+                    //
+                    //   ],
+                    // ),
                   ],
                 ),
                 8.h.verticalSpace,
@@ -110,13 +127,18 @@ class CartCardWidget extends ConsumerWidget {
                     ref
                         .read(cartProductProvider(productId).notifier)
                         .updateProduct(
-                          cartProductState
-                              .updateCartProduct(ref.read(cartProvider).data),
+                          cartProductState.updateCartProduct(
+                            ref.read(cartProvider).data,
+                          ),
                         );
-                    if (cartStateNotifier.selectedProducts
-                        .any((product) => product.id == cartProductState.id)) {
-                      cartStateNotifier.updateSelectedProduct(cartProductState
-                          .updateCartProduct(ref.read(cartProvider).data));
+                    if (cartStateNotifier.selectedProducts.any(
+                      (product) => product.id == cartProductState.id,
+                    )) {
+                      cartStateNotifier.updateSelectedProduct(
+                        cartProductState.updateCartProduct(
+                          ref.read(cartProvider).data,
+                        ),
+                      );
                     }
 
                     Navigator.of(context).pop();
@@ -128,59 +150,93 @@ class CartCardWidget extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ProductPriceAndDiscountInTheCartWidget(
-                      price: (double.parse(cartProductState.price.toString()) *
-                              cartProductState.quantity!)
-                          .toString(),
-                      productPriceAfterDiscount: (double.parse(cartProductState
-                                  .productPriceAfterDiscount
-                                  .toString()) *
-                              cartProductState.quantity!)
-                          .toString(),
+                      price:
+                          (double.parse(cartProductState.price.toString()) *
+                                  cartProductState.quantity!)
+                              .toString(),
+                      productPriceAfterDiscount:
+                          (double.parse(
+                                    cartProductState.productPriceAfterDiscount
+                                        .toString(),
+                                  ) *
+                                  cartProductState.quantity!)
+                              .toString(),
                       discount: cartProductState.discount,
                     ),
                     4.w.horizontalSpace,
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          child: SvgPicture.asset(
-                            AppIcons.cartMinus,
-                            height: 21.h,
-                          ),
-                          onTap: () {
-                            if (cartProductState.quantity! > 1) {
-                              onUpdateQuantity(cartProductState.quantity! - 1);
-                            }
-                          },
-                        ),
-                        QuantityWidget(
-                          quantity: cartProductState.quantity.toString(),
-                          isLoading: ref.watch(cartProvider).stateData ==
-                                  States.loading &&
-                              loadingId == cartProductState.id,
-                        ),
-                        InkWell(
-                          child: SvgPicture.asset(
-                            AppIcons.cartPlus,
-                            height: 21.h,
-                          ),
-                          onTap: () {
-                            onUpdateQuantity(cartProductState.quantity! + 1);
-                          },
-                        ),
-                      ],
-                    ),
-                    4.w.horizontalSpace,
-                    InkWell(
-                      child: SvgPicture.asset(
-                        AppIcons.cartDelete,
-                        height: 21.h,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 6.w),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 2.w,
+                        vertical: 2.h,
                       ),
-                      onTap: () {
-                        onDelete();
-                      },
+                      decoration: BoxDecoration(
+                        color: AppColors.scaffoldColor,
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(
+                          color: AppColors.primarySwatch.shade50,
+                        ),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              if (cartProductState.quantity! > 1) {
+                                onUpdateQuantity(
+                                  cartProductState.quantity! - 1,
+                                );
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.remove,
+                                color: AppColors.secondaryColor,
+                                size: 16.sp,
+                              ),
+                            ),
+                          ),
+                          QuantityWidget(
+                            quantity: cartProductState.quantity.toString(),
+                            isLoading:
+                                ref.watch(cartProvider).stateData ==
+                                    States.loading &&
+                                loadingId == cartProductState.id,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              onUpdateQuantity(cartProductState.quantity! + 1);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(2.6),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    AppColors.primarySwatch.shade200,
+                                    AppColors.primarySwatch.shade100,
+                                    AppColors.primarySwatch.shade50,
+                                  ],
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                color: AppColors.primaryColor,
+                                size: 15.sp,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    2.w.horizontalSpace,
                   ],
                 ),
               ],

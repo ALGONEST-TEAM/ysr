@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../../core/constants/app_icons.dart';
 import '../../../../../../core/widgets/buttons/icon_button_widget.dart';
 import '../../../../../../core/widgets/cart_badge_icon_widget.dart';
@@ -27,30 +26,48 @@ class AppBarOfDetailsWidget extends StatelessWidget
   });
 
   @override
-  Size get preferredSize => Size.fromHeight(50.h);
+  Size get preferredSize => Size.fromHeight(44.h);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
-      leading: const IconButtonWidget(),
-      leadingWidth: 54.w,
+      leading: Container(
+        margin: EdgeInsets.symmetric(horizontal: 12.w).copyWith(top: 2.6),
+          decoration: BoxDecoration(
+            color: Colors.white70,
+            shape: BoxShape.circle
+          ),
+          child: const IconButtonWidget()),
+      leadingWidth: 67.w,
       centerTitle: true,
       automaticallyImplyLeading: false,
-      toolbarHeight: 50.h,
-      title: SvgPicture.asset(
-        AppIcons.logo,
-        height: 40.h,
-      ),
+      toolbarHeight: 44.h,
       actions: [
+        8.horizontalSpace,
         if (!hideShareButton)
-          IconButtonWidget(
-            icon: AppIcons.sharing,
-            height: 20.h,
-            onPressed: onSharePressed,
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white70,
+                shape: BoxShape.circle
+            ),
+            child: IconButtonWidget(
+              icon: AppIcons.sharing,
+              height: 20.h,
+              onPressed: onSharePressed,
+            ),
           ),
-        const CartBadgeIconWidget(),
+        8.horizontalSpace,
+
+        Container(
+            decoration: BoxDecoration(
+                color: Colors.white70,
+                shape: BoxShape.circle
+            ),
+            child: const CartBadgeIconWidget()),
+        12.horizontalSpace,
+
       ],
     );
   }

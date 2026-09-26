@@ -149,19 +149,37 @@ class _ListOfSizeProductWidgetState
                 setState(() {});
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 13.w, vertical: 7.h),
+                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.secondaryColor : Colors.white,
-                  borderRadius: BorderRadius.circular(8.r),
-                  border: Border.all(color: AppColors.greySwatch.shade200),
+                  color: isSelected ? null : const Color(0xFFF3EFEA),
+                  gradient: isSelected
+                      ? const LinearGradient(
+                          colors: [
+                            Color(0xFFE5B250),
+                            AppColors.secondaryColor,
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : null,
+                  borderRadius: BorderRadius.circular(12.r),
+                  boxShadow: isSelected
+                      ? [
+                          BoxShadow(
+                            color: AppColors.secondaryColor.withValues(alpha: 0.3),
+                            blurRadius: 6,
+                            spreadRadius: 0,
+                            offset: const Offset(0, 3),
+                          ),
+                        ]
+                      : [],
                 ),
                 child: Text(
                   item.sizeTypeName.toString(),
                   style: TextStyle(
-                    color:
-                        isSelected ? AppColors.whiteColor : AppColors.fontColor,
-                    fontSize: 12.sp,
-                    fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                    color: isSelected ? Colors.white : AppColors.mainColorFont,
+                    fontSize: 13.sp,
+                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                   ),
                 ),
               ),

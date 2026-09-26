@@ -39,44 +39,53 @@ class _FilterProductsHomeWidgetState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w).copyWith(top: 2.h,bottom: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w).copyWith(top: 2.h, bottom: 2.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AutoSizeTextWidget(
-            text: S.of(context).products,
-            colorText: AppColors.fontColor,
-            fontSize: 11.4.sp,
-            fontWeight: FontWeight.w400,
+          Row(
+            children: [
+              Container(
+                width: 2.w,
+                height: 14.h,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
+              ),
+              8.w.horizontalSpace,
+              AutoSizeTextWidget(
+                text: S.of(context).products,
+                colorText: AppColors.fontColor,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
           ),
           GestureDetector(
             onTap: _onOpenSheet,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.5.h),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(20.r),
+                border: Border.all(color: Colors.grey.shade200, width: 1.w),
               ),
               alignment: Alignment.center,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  2.w.horizontalSpace,
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 1.4.h),
-                    child: AutoSizeTextWidget(
-                      text: _title,
-                      fontSize: 10.4.sp,
-                      minFontSize: 6,
-                      colorText: AppColors.fontColor,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  AutoSizeTextWidget(
+                    text: _title,
+                    fontSize: 10.6.sp,
+                    colorText: AppColors.fontColor,
+                    fontWeight: FontWeight.w500,
                   ),
-                  14.w.horizontalSpace,
+                  4.w.horizontalSpace,
                   Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    size: 18.sp,
-                    color: AppColors.fontColor.withValues(alpha:.8),
+                    size: 15.sp,
+                    color: AppColors.fontColor,
                   ),
                 ],
               ),

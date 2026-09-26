@@ -231,8 +231,6 @@ class _UpdateCartPageState extends ConsumerState<UpdateCartPage> {
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
                     child: DefaultButtonWidget(
                       text: S.of(context).refresh,
-                      background: AppColors.secondaryColor,
-                      height: 38.h,
                       textSize: 13.6.sp,
                       isLoading: cartState.stateData == States.loading,
                       onPressed: () {

@@ -38,6 +38,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final bool underlineInputBorder;
   final bool? buildCounter;
   final List<TextInputFormatter>? inputFormatters;
+  final double? borderRadius;
 
   const TextFormFieldWidget({
     super.key,
@@ -73,6 +74,7 @@ class TextFormFieldWidget extends StatefulWidget {
     this.underlineInputBorder = false,
     this.buildCounter = true,
     this.inputFormatters,
+    this.borderRadius,
 
   });
 
@@ -217,7 +219,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget>
               )
             : OutlineInputBorder(
                 borderSide: widget.borderSideError ?? BorderSide.none,
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 8.r),
               ),
         focusedErrorBorder: widget.underlineInputBorder
             ? UnderlineInputBorder(
@@ -225,7 +227,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget>
               )
             : OutlineInputBorder(
                 borderSide: widget.borderSideError ?? BorderSide.none,
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 8.r),
               ),
         focusedBorder: widget.underlineInputBorder
             ? UnderlineInputBorder(
@@ -233,7 +235,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget>
               )
             : OutlineInputBorder(
                 borderSide: widget.borderSide ?? BorderSide.none,
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 8.r),
               ),
         enabledBorder: widget.underlineInputBorder
             ? UnderlineInputBorder(
@@ -241,7 +243,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget>
               )
             : OutlineInputBorder(
                 borderSide: widget.borderSide ?? BorderSide.none,
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 8.r),
               ),
         prefixIcon: widget.prefix,
         suffixIcon: widget.suffixIcon,

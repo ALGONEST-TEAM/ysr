@@ -17,21 +17,21 @@ class TapBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double vPad = lerpDouble(6.h, 8.h, t)!; // padding عمودي
-    final double hPad = lerpDouble(24.w, 34.w, t)!; // padding أفقي
-    final double chipHeight = lerpDouble(36.h, 40.h, t)!; // ارتفاع الكبسولة
-    final double radius = lerpDouble(8.r, 8.r, t)!; // نصف القطر
-    final double font = lerpDouble(11.sp, 12.sp, t)!; // حجم الخط
+    final double vPad = lerpDouble(4.h, 7.h, t)!;
+    final double hPad = lerpDouble(16.w, 24.w, t)!;
+    final double chipHeight = lerpDouble(42.h, 44.h, t)!;
+    final double radius = 100.r;
+    final double font = lerpDouble(10.8.sp, 11.5.sp, t)!;
 
     return TabBar(
       controller: controller,
       isScrollable: true,
-      padding: EdgeInsets.symmetric(horizontal: 4.5.w),
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
       dividerColor: Colors.transparent,
       indicatorSize: TabBarIndicatorSize.tab,
-      overlayColor: MaterialStateProperty.all(Colors.transparent),
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
       labelPadding: EdgeInsets.zero,
-      indicatorPadding: EdgeInsets.symmetric(horizontal: 4.5.w, vertical: 2),
+      indicatorPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
       indicator: ShapeDecoration(
         color: AppColors.transparent,
         shape: RoundedRectangleBorder(
@@ -43,39 +43,59 @@ class TapBarWidget extends StatelessWidget {
           AnimatedBuilder(
             animation: controller.animation!,
             builder: (context, _) {
-              // موقع الأنيميشن الحالي
               final value =
                   controller.animation?.value ?? controller.index.toDouble();
-              // حساب القرب من التبويبة الحالية
               final selectness = (1.0 - (value - i).abs()).clamp(0.0, 1.0);
+
               final bgColor = Color.lerp(
-                  Colors.white, AppColors.secondaryColor, selectness)!;
+                  Colors.white, AppColors.primaryColor, selectness)!;
               final textColor = Color.lerp(
-                  AppColors.secondaryColor, Colors.white, selectness)!;
+                  AppColors.fontColor, Colors.white, selectness)!;
+              final borderColor = Color.lerp(
+                  Colors.grey.shade300,
+                  AppColors.secondarySwatch.shade100,
+                  selectness)!;
+              final shadowOpacity = lerpDouble(0.0, 0.2, selectness)!;
 
               return Container(
                 height: chipHeight,
-                margin: EdgeInsets.symmetric(horizontal: 4.5.w),
-                padding: EdgeInsets.symmetric(horizontal: hPad, vertical: vPad),
+                margin: EdgeInsets.symmetric(
+                    horizontal: 4.w, vertical: lerpDouble(3.h, 5.h, t)!),
+                padding:
+                EdgeInsets.symmetric(horizontal: hPad, vertical: vPad),
                 decoration: BoxDecoration(
                   color: bgColor,
                   borderRadius: BorderRadius.circular(radius),
                   border: Border.all(
-                    color: AppColors.greySwatch.shade100,
-                    width: 0.4,
+                    color: borderColor,
+                    width: lerpDouble(1.0, 1.5, selectness)!,
                   ),
+                  boxShadow: [
+                    if (selectness > 0.05)
+                      BoxShadow(
+                        color: AppColors.primaryColor
+                            .withValues(alpha: shadowOpacity),
+                        blurRadius: 6,
+                        offset: const Offset(0, 2),
+                      ),
+                  ],
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  titles[i],
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                    fontFamily: 'IBMPlexSansArabic',
-                    fontWeight: FontWeight.w500,
-                    fontSize: font,
-                    color: textColor,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    titles[i],
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                      fontFamily: 'IBMPlexSansArabic',
+                      fontWeight:
+                      selectness > 0.5 ? FontWeight.w700 : FontWeight.w500,
+                      fontSize: font,
+                      height: 1.2,
+                      color: textColor,
+                    ),
                   ),
                 ),
               );

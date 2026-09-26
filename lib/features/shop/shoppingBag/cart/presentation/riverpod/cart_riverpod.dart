@@ -21,6 +21,21 @@ class GetAllCartController extends StateNotifier<DataState<List<CartModel>>> {
 
   final _controller = CartReposaitory();
 
+  // تجميع منتجات السلة لتعرض كقوائم منفصلة لكل مورد
+  Map<int, List<CartModel>> get groupedByVendor {
+    final Map<int, List<CartModel>> groups = {};
+    for (var item in state.data) {
+      final vendorId = item.vendorId ?? 0;
+      
+      if (!groups.containsKey(vendorId)) {
+        groups[vendorId] = [];
+      }
+      
+      groups[vendorId]!.add(item);
+    }
+    return groups;
+  }
+
   Future<void> getData() async {
     state = state.copyWith(state: States.loading);
     final data = await _controller.getAllCart();
@@ -80,6 +95,22 @@ class CartController extends StateNotifier<DataState<CartProductModel>> {
 
   List<CartModel> get selectedProducts => _selectedProducts;
 
+  // التحقق من أن جميع المنتجات المحددة في السلة تابعة لنفس المورد
+  // يستخدم لمنع المستخدم من عمل Checkout لمنتجات من موردين مختلفين في نفس الطلب
+  bool get isSingleVendorSelected {
+    if (_selectedProducts.isEmpty) return true;
+    final firstVendorId = _selectedProducts.first.vendorId ?? 0;
+    return _selectedProducts.every((p) => (p.vendorId ?? 0) == firstVendorId);
+  }
+
+  int? get selectedVendorId {
+    if (_selectedProducts.isEmpty) return null;
+    if (isSingleVendorSelected) {
+      return _selectedProducts.first.vendorId ?? 0;
+    }
+    return null;
+  }
+
   double calculateSelectedTotalPrice() {
     return _selectedProducts.fold(0, (sum, product) {
       if (product.isPrintable == 1) {
@@ -92,21 +123,24 @@ class CartController extends StateNotifier<DataState<CartProductModel>> {
     });
   }
 
-  void toggleAllProductsSelection(bool isChecked, List<CartModel> allProducts) {
-    if (isChecked) {
-      selectedProducts.clear();
-      selectedProducts.addAll(allProducts.map((product) => product));
-    } else {
-      selectedProducts.clear();
-    }
-    state = state.copyWith(state: States.initial);
+  bool isVendorProductsFullySelected(List<CartModel> vendorProducts) {
+    if (vendorProducts.isEmpty) return false;
+    return vendorProducts.every(
+      (product) => selectedProducts.any((p) => p.id == product.id),
+    );
   }
 
-  bool isAllProductsSelected(List<CartModel> allProducts) {
-    return selectedProducts.length == allProducts.length &&
-        allProducts.every(
-          (product) => selectedProducts.any((p) => p.id == product.id),
-        );
+  void toggleVendorProductsSelection(bool isChecked, List<CartModel> vendorProducts) {
+    if (isChecked) {
+      for (var product in vendorProducts) {
+        if (!selectedProducts.any((p) => p.id == product.id)) {
+          selectedProducts.add(product);
+        }
+      }
+    } else {
+      selectedProducts.removeWhere((p) => vendorProducts.any((vp) => vp.id == p.id));
+    }
+    state = state.copyWith(state: States.initial);
   }
 
   void toggleProductSelection(bool isChecked, CartModel product) {

@@ -51,7 +51,7 @@ class ListOfSizeInFilterWidget extends ConsumerWidget {
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
             decoration: BoxDecoration(
               color: isSelected
-                  ? AppColors.primaryColor.withOpacity(0.2)
+                  ? AppColors.primaryColor.withValues(alpha: 0.2)
                   : AppColors.whiteColor,
               border: Border.all(
                 color:

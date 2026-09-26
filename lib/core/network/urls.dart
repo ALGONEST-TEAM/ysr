@@ -4,7 +4,7 @@ class AppURL {
   // Primary public host: https://safirah.store
   ///https://dash.jeeey.net
   //https://jeeey-dashboard.najaz.in
-  //https://dash-jeeey.dev-station.com
+  //https://saferah.dev-station.com/api/app
   static String get baseURL => '$base/api/app';
 
   static String get checkUser => '/auth/check';
@@ -18,6 +18,8 @@ class AppURL {
   static String get resendOtp => '/auth/update_otp';
 
   static String get getProfileData => '/profile';
+
+  static String teamMatches(int teamId) => '/predictions/teams/$teamId/matches';
 
   static String get editProfile => '/profile/update';
 
@@ -97,7 +99,31 @@ class AppURL {
 
   static const String getAllMatches = '/predictions/fixtures/current';
 
+  static String matchDetails(int matchId) => '/predictions/fixtures/$matchId/details';
+
+  static String matchStatistics(int matchId, {String? period}) {
+    if (period != null && period.trim().isNotEmpty) {
+      return '/predictions/fixtures/$matchId/statistics?period=$period';
+    }
+    return '/predictions/fixtures/$matchId/statistics';
+  }
+
+  static String matchStandings(int matchId, {String? scope}) {
+    if (scope != null && scope.trim().isNotEmpty) {
+      return '/predictions/fixtures/$matchId/standings?scope=$scope';
+    }
+    return '/predictions/fixtures/$matchId/standings';
+  }
+
+  static String matchLineups(int matchId) => '/predictions/fixtures/$matchId/lineup';
+
+  static String matchEvents(int matchId) => '/predictions/fixtures/$matchId/events';
+
+  static String matchH2H(int matchId) => '/predictions/fixtures/$matchId/h2h';
+
   static const String prediction = '/predictions';
+
+  static String competitorPredictions(int id) => '/predictions/competitor/$id';
 
   static const String standings = '/predictions/rankings';
 
@@ -108,5 +134,13 @@ class AppURL {
   static const String leagueHome = '/league-application/home/main';
 
   static const String news = '/league-application/news';
+
+  static String get confirmPayment => '/booking/payment';
+
+  static String get startFloosakPayment => '/booking/payment/Flousk/send-money';
+
+  static String get confirmFloosakPayment => '/booking/payment/Flousk/confirm';
+  static String get getAllPaymentMethods => '/orders/get_payment-methods';
+  static String get getDeliveryType => '/orders/get_delivery_types';
 
 }
