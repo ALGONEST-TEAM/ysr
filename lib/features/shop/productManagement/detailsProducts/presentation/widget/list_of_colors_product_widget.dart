@@ -124,8 +124,8 @@ class _ListOfColorsProductWidgetState
                             }
                           },
                           child: Container(
-                            height: 34.w,
-                            width: 34.w,
+                            height: 32.h,
+                            width: 32.w,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: hexToColor(item.colorHex!),

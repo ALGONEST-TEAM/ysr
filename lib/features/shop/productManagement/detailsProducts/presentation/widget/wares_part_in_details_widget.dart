@@ -17,6 +17,7 @@ import 'list_of_size_product_widget.dart';
 import 'more_details_widget.dart';
 import 'price_with_discount_price_widget.dart';
 import 'printing_on_the_product_widget.dart';
+import 'vendor_card_widget.dart';
 
 class WaresPartInDetailsWidget extends ConsumerWidget {
   const WaresPartInDetailsWidget({super.key, required this.productData});
@@ -161,41 +162,3 @@ class WaresPartInDetailsWidget extends ConsumerWidget {
   }
 }
 
-class VendorCardWidget extends StatelessWidget {
-  final VendorModel? vendor;
-
-  const VendorCardWidget({
-    super.key,
-    this.vendor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (vendor == null) return const SizedBox.shrink();
-
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF3EFEA),
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Row(
-        children: [
-
-          AutoSizeTextWidget(
-            text: 'زيارة المتجر',
-            colorText: const Color(0xFF162238),
-            fontWeight: FontWeight.w600,
-            fontSize: 11.sp,
-          ),
-          4.horizontalSpace,
-          Icon(
-            Icons.arrow_forward_ios_rounded,
-            color: const Color(0xFF162238),
-            size: 10.sp,
-          ),
-        ],
-      ),
-    );
-  }
-}
