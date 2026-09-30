@@ -10,6 +10,7 @@ import '../../../../../core/state/state.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/widgets/product/products_shimmer_widget.dart';
 import '../../../../../core/widgets/shimmer_widget.dart';
+import '../../data/data_source/remote_data_source.dart';
 import '../riverpod/home_riverpod.dart';
 import 'category_widget.dart';
 import 'filter_products_home_widget.dart';
@@ -21,11 +22,13 @@ class SectionOfCategoryInHomePage extends ConsumerStatefulWidget {
   const SectionOfCategoryInHomePage({
     required this.idSection,
     this.offers = const [],
+    this.vendorId,
     super.key,
   });
 
   final int idSection;
   final List<OffersModel> offers;
+  final int? vendorId;
 
   @override
   ConsumerState<SectionOfCategoryInHomePage> createState() =>
@@ -171,15 +174,16 @@ class _SectionOfCategoryInHomePageState
               },
             ),
             if (state.stateData != States.error) ...[
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    2.h.verticalSpace,
-                    TopVendorsWidget(categoryId: widget.idSection),
-                    2.h.verticalSpace,
-                  ],
+              if (widget.vendorId == null)
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      2.h.verticalSpace,
+                      TopVendorsWidget(categoryId: widget.idSection),
+                      2.h.verticalSpace,
+                    ],
+                  ),
                 ),
-              ),
               SliverToBoxAdapter(
                 child: FilterProductsHomeWidget(idSection: widget.idSection),
               ),
@@ -193,11 +197,20 @@ class _SectionOfCategoryInHomePageState
                         ),
                       );
                     }
+                    var products = state.data.product?.data ?? [];
+                    if (widget.vendorId != null) {
+                      products = products.where((p) {
+                        final pVendorId = (p.vendorId != null && p.vendorId! > 0)
+                            ? p.vendorId!
+                            : SectionsRemoteDataSource.vendors[(p.id ?? 0) % SectionsRemoteDataSource.vendors.length]['id'] as int;
+                        return pVendorId == widget.vendorId;
+                      }).toList();
+                    }
                     return state.stateData == States.loading
                         ? const ProductsShimmerWidget()
                         : ProductListWidget(
                             isLoadingMore: isLoadingMore,
-                            product: state.data.product?.data ?? [],
+                            product: products,
                           );
                   },
                 ),

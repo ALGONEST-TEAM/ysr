@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../../core/helpers/navigateTo.dart';
 import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/widgets/auto_size_text_widget.dart';
 import '../../../../../../core/widgets/online_images_widget.dart';
 import '../../../../home/data/model/vendor_model.dart';
+import '../../../../home/presentation/pages/home_page.dart';
 
 class VendorCardWidget extends StatelessWidget {
   final VendorModel? vendor;
@@ -29,18 +31,28 @@ class VendorCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.r),
-
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTap ?? () {},
+          onTap: onTap ??
+              () {
+                if (vendor != null) {
+                  navigateTo(
+                    context,
+                    HomePage(
+                      vendorId: vendor!.id,
+                      vendorName: vendor!.name,
+                      vendorCity: vendor!.city,
+                    ),
+                  );
+                }
+              },
           borderRadius: BorderRadius.circular(12.r),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
             child: Row(
               children: [
-                // Vendor Logo with Luxury Ring & Verified Badge
                 Stack(
                   alignment: Alignment.bottomRight,
                   clipBehavior: Clip.none,
@@ -92,14 +104,11 @@ class VendorCardWidget extends StatelessWidget {
                   ],
                 ),
                 12.horizontalSpace,
-
-                // Vendor Information (Tag, Rating, Name, City)
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Subtitle / Store Tag & Rating
                       Row(
                         children: [
                           Container(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../core/helpers/navigateTo.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/widgets/auto_size_text_widget.dart';
 import '../../../../../core/widgets/online_images_widget.dart';
+import '../pages/home_page.dart';
 import '../riverpod/home_riverpod.dart';
 import '../../data/model/vendor_model.dart';
 
@@ -117,7 +119,16 @@ class _VendorCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(18.r),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            navigateTo(
+              context,
+              HomePage(
+                vendorId: vendor.id,
+                vendorName: vendor.name,
+                vendorCity: vendor.city,
+              ),
+            );
+          },
           child: Stack(
             children: [
               // Subtle Decorative Gradient Background Wave

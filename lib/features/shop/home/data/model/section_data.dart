@@ -15,6 +15,8 @@ class SectionData {
   final List<CategoryData>? category;
   @HiveField(4)
   final String? hasSubSection;
+  @HiveField(5)
+  final int? vendorId;
 
   SectionData({
     this.id,
@@ -22,6 +24,7 @@ class SectionData {
     this.nameEn,
     this.category,
     this.hasSubSection,
+    this.vendorId,
   });
 
   factory SectionData.fromJson(Map<String, dynamic> json) {
@@ -31,6 +34,7 @@ class SectionData {
       nameEn: json['name_en'] ?? "",
       hasSubSection: json['has_sub'],
       category: CategoryData.fromJsonCategoryList(json['categories'] ?? []),
+      vendorId: json['vendor_id'],
     );
   }
 

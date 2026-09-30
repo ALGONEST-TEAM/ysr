@@ -12,6 +12,7 @@ import '../../data/model/sections_and_offers_data.dart';
 import '../../data/reposaitory/reposaitories.dart';
 import '../../../productManagement/detailsProducts/data/model/product_data.dart';
 import '../../data/model/vendor_model.dart';
+import '../../data/data_source/remote_data_source.dart';
 
 final homeTabIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -182,7 +183,7 @@ final categoryBannersProvider = StateProvider.family<List<OffersModel>, int>((re
 });
 
 final categoryVendorsProvider = StateProvider.family<List<VendorModel>, int>((ref, categoryId) {
-  return MockHomeDataSource.getTopVendorsForCategory(categoryId);
+  return SectionsRemoteDataSource.vendors.map((v) => VendorModel.fromJson(v)).toList();
 });
 
 final categoryFlashDealsProvider = StateProvider.family<List<ProductData>, int>((ref, categoryId) {

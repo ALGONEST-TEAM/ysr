@@ -142,6 +142,67 @@ AppBar appBarHomeWidget({required BuildContext context}) {
   );
 }
 
+AppBar appBarVendorWidget({
+  required BuildContext context,
+  required String vendorName,
+  required String? vendorCity,
+}) {
+  return AppBar(
+    backgroundColor: Colors.white,
+    elevation: 0,
+    centerTitle: true,
+    leading: IconButton(
+      icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.primaryColor),
+      onPressed: () => Navigator.of(context).pop(),
+    ),
+    title: Column(
+      children: [
+        AutoSizeTextWidget(
+          text: vendorName,
+          colorText: const Color(0xFF162238),
+          fontSize: 16.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        if (vendorCity != null) ...[
+          2.verticalSpace,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.location_on_rounded, color: AppColors.fontColor3, size: 10.sp),
+              3.horizontalSpace,
+              AutoSizeTextWidget(
+                text: vendorCity,
+                colorText: AppColors.fontColor3,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ],
+          ),
+        ],
+      ],
+    ),
+    actions: [
+      IconButton(
+        icon: SvgPicture.asset(
+          AppIcons.search,
+          height: 18.h,
+          colorFilter: const ColorFilter.mode(
+            Color(0xFF162238),
+            BlendMode.srcIn,
+          ),
+        ),
+        onPressed: () {
+          navigateTo(context, SearchPage(hintTextSearch: ""));
+        },
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 8.w, right: 4.w),
+        child: const CartBadgeIconWidget(),
+      ),
+    ],
+  );
+}
+
 class _SearchFieldArcPainter extends CustomPainter {
   final Color primaryColor;
   final Color secondaryColor;
