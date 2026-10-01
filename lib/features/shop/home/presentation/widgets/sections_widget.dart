@@ -10,7 +10,7 @@ import '../../../../../core/state/state.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/widgets/product/products_shimmer_widget.dart';
 import '../../../../../core/widgets/shimmer_widget.dart';
-import '../../data/data_source/remote_data_source.dart';
+import '../../data/model/vendor_model.dart';
 import '../riverpod/home_riverpod.dart';
 import 'category_widget.dart';
 import 'filter_products_home_widget.dart';
@@ -18,6 +18,7 @@ import '../../../../../core/widgets/product/product_list_widget.dart';
 import '../../data/model/offers_model.dart';
 import 'offers_widget.dart';
 import 'top_vendors_widget.dart';
+
 class SectionOfCategoryInHomePage extends ConsumerStatefulWidget {
   const SectionOfCategoryInHomePage({
     required this.idSection,
@@ -111,8 +112,7 @@ class _SectionOfCategoryInHomePageState
                 top: -10.h,
                 left: 0,
                 right: 0,
-                child:
-                ShimmerWidget(
+                child: ShimmerWidget(
                   baseColor: AppColors.primaryColor.withValues(alpha: 0.08),
                   highlightColor: AppColors.primaryColor,
                   child: SvgPicture.asset(AppIcons.logoText, height: 54.h),
@@ -153,10 +153,8 @@ class _SectionOfCategoryInHomePageState
               SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    6.h.verticalSpace,
-                    OffersWidget(
-                      offers: widget.offers,
-                    ),
+                    8.h.verticalSpace,
+                    OffersWidget(offers: widget.offers),
                     2.h.verticalSpace,
                   ],
                 ),
@@ -176,13 +174,7 @@ class _SectionOfCategoryInHomePageState
             if (state.stateData != States.error) ...[
               if (widget.vendorId == null)
                 SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      2.h.verticalSpace,
-                      TopVendorsWidget(categoryId: widget.idSection),
-                      2.h.verticalSpace,
-                    ],
-                  ),
+                  child: TopVendorsWidget(categoryId: widget.idSection),
                 ),
               SliverToBoxAdapter(
                 child: FilterProductsHomeWidget(idSection: widget.idSection),
@@ -200,9 +192,12 @@ class _SectionOfCategoryInHomePageState
                     var products = state.data.product?.data ?? [];
                     if (widget.vendorId != null) {
                       products = products.where((p) {
-                        final pVendorId = (p.vendorId != null && p.vendorId! > 0)
+                        final pVendorId =
+                            (p.vendorId != null && p.vendorId! > 0)
                             ? p.vendorId!
-                            : SectionsRemoteDataSource.vendors[(p.id ?? 0) % SectionsRemoteDataSource.vendors.length]['id'] as int;
+                            : VendorModel.mockVendors[(p.id ?? 0) %
+                                      VendorModel.mockVendors.length]['id']
+                                  as int;
                         return pVendorId == widget.vendorId;
                       }).toList();
                     }

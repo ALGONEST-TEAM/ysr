@@ -26,7 +26,7 @@ class TapBarWidget extends StatelessWidget {
     return TabBar(
       controller: controller,
       isScrollable: true,
-      tabAlignment: titles.length <= 3 ? TabAlignment.center : TabAlignment.start,
+      tabAlignment:  TabAlignment.start,
       padding: EdgeInsets.symmetric(horizontal: 8.w),
       dividerColor: Colors.transparent,
       indicatorSize: TabBarIndicatorSize.tab,

@@ -18,8 +18,9 @@ class HomeCategoriesList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        6.verticalSpace,
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 6.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 8.h),
           child: Row(
             children: [
               Container(

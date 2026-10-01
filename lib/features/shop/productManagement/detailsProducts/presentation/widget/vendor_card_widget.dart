@@ -12,11 +12,7 @@ class VendorCardWidget extends StatelessWidget {
   final VendorModel? vendor;
   final VoidCallback? onTap;
 
-  const VendorCardWidget({
-    super.key,
-    this.vendor,
-    this.onTap,
-  });
+  const VendorCardWidget({super.key, this.vendor, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +23,7 @@ class VendorCardWidget extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8.h),
+      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.r),
@@ -35,17 +31,11 @@ class VendorCardWidget extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTap ??
+          onTap:
+              onTap ??
               () {
                 if (vendor != null) {
-                  navigateTo(
-                    context,
-                    HomePage(
-                      vendorId: vendor!.id,
-                      vendorName: vendor!.name,
-                      vendorCity: vendor!.city,
-                    ),
-                  );
+                  navigateTo(context, HomePage(vendorData: vendor));
                 }
               },
           borderRadius: BorderRadius.circular(12.r),
@@ -64,12 +54,12 @@ class VendorCardWidget extends StatelessWidget {
                         shape: BoxShape.circle,
                         color: Colors.white,
                         border: Border.all(
-                          color: AppColors.primaryColor.withValues(alpha:0.12),
+                          color: AppColors.primaryColor.withValues(alpha: 0.12),
                           width: 1.5.w,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha:0.04),
+                            color: Colors.black.withValues(alpha: 0.04),
                             blurRadius: 6,
                             offset: const Offset(0, 2),
                           ),
@@ -117,7 +107,9 @@ class VendorCardWidget extends StatelessWidget {
                               vertical: 1.5.h,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.primaryColor.withValues(alpha: 0.08),
+                              color: AppColors.primaryColor.withValues(
+                                alpha: 0.08,
+                              ),
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                             child: AutoSizeTextWidget(
@@ -187,12 +179,15 @@ class VendorCardWidget extends StatelessWidget {
                 ),
                 8.horizontalSpace,
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 7.h,
+                  ),
                   decoration: BoxDecoration(
                     color: Color(0xFFF3EFEA),
                     borderRadius: BorderRadius.circular(8.r),
                     border: Border.all(
-                      color: AppColors.primaryColor.withValues(alpha:0.12),
+                      color: AppColors.primaryColor.withValues(alpha: 0.12),
                       width: 1.w,
                     ),
                   ),

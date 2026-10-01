@@ -54,4 +54,31 @@ class VendorModel {
       city: city ?? this.city,
     );
   }
+
+  static const mockVendors = [
+    {
+      'id': 1,
+      'name': 'متجر الأناقة الرياضية',
+      'rating': 4.8,
+      'reviews_count': 95,
+      'logo': 'https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg',
+      'city': 'صنعاء - الزبيري'
+    },
+    {
+      'id': 2,
+      'name': 'مؤسسة التقنية الحديثة',
+      'rating': 4.9,
+      'reviews_count': 140,
+      'logo': 'https://img.freepik.com/free-vector/gradient-bird-logo-template_23-2151128362.jpg',
+      'city': 'صنعاء - حدة'
+    },
+    {
+      'id': 3,
+      'name': 'متجر يسر الرسمي',
+      'rating': 5.0,
+      'reviews_count': 320,
+      'logo': 'https://img.freepik.com/free-vector/modern-eagle-logo-design_1332-1599.jpg',
+      'city': 'صنعاء - الأصبحي'
+    },
+  ];
 }

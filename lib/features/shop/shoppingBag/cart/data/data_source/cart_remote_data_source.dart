@@ -2,17 +2,12 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../../../core/network/remote_request.dart';
 import '../../../../../../core/network/urls.dart';
+import '../../../../home/data/model/vendor_model.dart';
 import '../model/cart_model.dart';
 import '../model/cart_product_model.dart';
 
 class CartRemoteDataSource {
   CartRemoteDataSource();
-
-  final _vendors = const [
-    {'id': 1, 'name': 'متجر الأناقة الرياضية', 'rating': 4.8, 'reviews_count': 95},
-    {'id': 2, 'name': 'مؤسسة التقنية الحديثة', 'rating': 4.9, 'reviews_count': 140},
-    {'id': 3, 'name': 'متجر يسر الرسمي', 'rating': 5.0, 'reviews_count': 320},
-  ];
 
   Future<List<CartModel>> getAllCart() async {
     final response = await RemoteRequest.getData(
@@ -26,7 +21,7 @@ class CartRemoteDataSource {
     for (var item in items) {
       if (item is Map) {
         final productId = (item['product_id'] as num?)?.toInt() ?? 0;
-        final vendor = _vendors[productId % _vendors.length];
+        final vendor = VendorModel.mockVendors[productId % VendorModel.mockVendors.length];
         item['vendor_id'] = vendor['id'];
         item['vendor'] = vendor;
       }
@@ -88,7 +83,7 @@ class CartRemoteDataSource {
     );
     
     final data = response.data['data'] as Map<String, dynamic>;
-    final vendor = _vendors[productId % _vendors.length];
+    final vendor = VendorModel.mockVendors[productId % VendorModel.mockVendors.length];
     data['vendor_id'] = vendor['id'];
     data['vendor'] = vendor;
     

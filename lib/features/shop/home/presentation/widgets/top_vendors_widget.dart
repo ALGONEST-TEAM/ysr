@@ -11,6 +11,7 @@ import '../../data/model/vendor_model.dart';
 
 class TopVendorsWidget extends ConsumerWidget {
   final int categoryId;
+
   const TopVendorsWidget({super.key, required this.categoryId});
 
   @override
@@ -50,7 +51,10 @@ class TopVendorsWidget extends ConsumerWidget {
                 onTap: () {},
                 borderRadius: BorderRadius.circular(20.r),
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.5.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 4.5.h,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20.r),
@@ -78,7 +82,6 @@ class TopVendorsWidget extends ConsumerWidget {
             ],
           ),
         ),
-        // Vendors Horizontal Carousel
         SizedBox(
           height: 120.h,
           child: ListView.separated(
@@ -92,6 +95,7 @@ class TopVendorsWidget extends ConsumerWidget {
             },
           ),
         ),
+        8.verticalSpace,
       ],
     );
   }
@@ -110,28 +114,16 @@ class _VendorCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(
-          color: Colors.grey.shade200,
-          width: 1.w,
-        ),
-
+        border: Border.all(color: Colors.grey.shade200, width: 1.w),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(18.r),
         child: InkWell(
           onTap: () {
-            navigateTo(
-              context,
-              HomePage(
-                vendorId: vendor.id,
-                vendorName: vendor.name,
-                vendorCity: vendor.city,
-              ),
-            );
+            navigateTo(context, HomePage(vendorData: vendor));
           },
           child: Stack(
             children: [
-              // Subtle Decorative Gradient Background Wave
               Positioned(
                 top: 0,
                 left: 0,
@@ -150,19 +142,15 @@ class _VendorCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Main Content Column
               Padding(
                 padding: EdgeInsets.fromLTRB(6.w, 8.h, 6.w, 6.h),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Story Ring Avatar with Squircle Logo
                     Stack(
                       alignment: Alignment.center,
                       clipBehavior: Clip.none,
                       children: [
-                        // Luxury Story Gradient Ring
                         Container(
                           padding: EdgeInsets.all(2.w),
                           decoration: BoxDecoration(
@@ -200,7 +188,6 @@ class _VendorCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // Verified Blue Badge Icon Overlay
                         Positioned(
                           bottom: -2.h,
                           right: -3.w,
@@ -212,7 +199,7 @@ class _VendorCard extends StatelessWidget {
                             ),
                             child: Icon(
                               Icons.verified_rounded,
-                              color: const Color(0xFF1DA1F2),
+                              color: AppColors.primaryColor,
                               size: 13.sp,
                             ),
                           ),

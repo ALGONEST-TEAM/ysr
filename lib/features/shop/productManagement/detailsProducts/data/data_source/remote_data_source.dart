@@ -1,15 +1,11 @@
 import '../../../../../../core/network/remote_request.dart';
 import '../../../../../../core/network/urls.dart';
+import '../../../../home/data/model/vendor_model.dart';
 import '../model/product_data.dart';
 
 class ProductDetailsRemoteDataSource {
-  ProductDetailsRemoteDataSource();
 
-  final _vendors = const [
-    {'id': 1, 'name': 'متجر الأناقة الرياضية', 'rating': 4.8, 'reviews_count': 95},
-    {'id': 2, 'name': 'مؤسسة التقنية الحديثة', 'rating': 4.9, 'reviews_count': 140},
-    {'id': 3, 'name': 'متجر يسر الرسمي', 'rating': 5.0, 'reviews_count': 320},
-  ];
+  ProductDetailsRemoteDataSource();
 
   Future<ProductData> getDetailsOfProduct(int idProduct) async {
     final response = await RemoteRequest.getData(
@@ -17,7 +13,7 @@ class ProductDetailsRemoteDataSource {
     );
     
     final data = response.data['data']['product'] as Map<String, dynamic>;
-    final vendor = _vendors[idProduct % _vendors.length];
+    final vendor = VendorModel.mockVendors[idProduct % VendorModel.mockVendors.length];
     data['vendor_id'] = vendor['id'];
     data['vendor'] = vendor;
 
