@@ -7,8 +7,7 @@ import '../../../home/data/model/section_with_product_data.dart';
 import '../../../productManagement/detailsProducts/data/model/paginated_products_list_data.dart';
 import '../../data/model/offer_products_model.dart';
 import '../../data/model/sections_and_offers_data.dart';
-import '../../data/reposaitory/reposaitories.dart';
-import '../../data/model/vendor_model.dart';
+import '../../data/repos/reposaitories.dart';
 
 final homeTabIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -173,8 +172,5 @@ class GetOfferProductsController
 }
 
 
-final categoryVendorsProvider = StateProvider.family<List<VendorModel>, int>((ref, categoryId) {
-  return VendorModel.mockVendors.map((v) => VendorModel.fromJson(v)).toList();
-});
 
 

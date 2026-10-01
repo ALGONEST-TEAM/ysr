@@ -57,4 +57,15 @@ class SectionsRemoteDataSource {
 
     return OfferProductsModel.fromJson(response.data['data']);
   }
+
+  Future<List<VendorModel>> getAllVendors() async {
+    // Simulate API delay
+    await Future.delayed(const Duration(milliseconds: 800));
+    
+    // In the future, this will be replaced with an actual API request like:
+    // final response = await RemoteRequest.getData(url: "/vendors");
+    // return (response.data['data'] as List).map((v) => VendorModel.fromJson(v)).toList();
+    
+    return VendorModel.mockVendors.map((v) => VendorModel.fromJson(v)).toList();
+  }
 }

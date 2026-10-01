@@ -35,7 +35,7 @@ class RadioWidget extends StatelessWidget {
         border: border
             ? Border.all(
                 color: selected
-                    ? AppColors.primaryColor.withValues(alpha:.35)
+                    ?selectedColor ?? AppColors.primaryColor.withValues(alpha:.35)
                     : const Color(0xFFE3E0F0),
                 width: 2,
               )

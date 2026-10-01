@@ -6,8 +6,9 @@ import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/widgets/auto_size_text_widget.dart';
 import '../../../../../core/widgets/online_images_widget.dart';
 import '../pages/home_page.dart';
-import '../riverpod/home_riverpod.dart';
+import '../pages/vendors_page.dart';
 import '../../data/model/vendor_model.dart';
+import '../riverpod/vendor_riverpod.dart';
 
 class TopVendorsWidget extends ConsumerWidget {
   final int categoryId;
@@ -48,7 +49,9 @@ class TopVendorsWidget extends ConsumerWidget {
                 ],
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  navigateTo(context, const VendorsPage());
+                },
                 borderRadius: BorderRadius.circular(20.r),
                 child: Container(
                   padding: EdgeInsets.symmetric(

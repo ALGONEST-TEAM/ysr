@@ -101,7 +101,7 @@ class SortBottomSheetWidget extends StatelessWidget {
                     child: Container(
                       height: 46.h,
                       decoration: BoxDecoration(
-                        color: AppColors.scaffoldColor, // بنفسجي فاتح بالصورة
+                        color: AppColors.scaffoldColor,
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 14.w),
@@ -115,7 +115,7 @@ class SortBottomSheetWidget extends StatelessWidget {
                               colorText: const Color(0xFF4F4A59),
                             ),
                           ),
-                          RadioWidget(selected: selected),
+                          RadioWidget(selected: selected,selectedColor: AppColors.secondaryColor,),
                         ],
                       ),
                     ),
