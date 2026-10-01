@@ -5,6 +5,7 @@ import '../data_source/remote_data_source.dart';
 import '../model/offer_products_model.dart';
 import '../model/sections_and_offers_data.dart';
 import '../model/section_with_product_data.dart';
+import '../model/vendor_model.dart';
 
 class SectionReposaitory {
   SectionReposaitory();
@@ -65,6 +66,15 @@ class SectionReposaitory {
       int offerId) async {
     try {
       final data = await SectionsRemoteDataSource().getOfferProducts(offerId);
+      return Right(data);
+    } on DioException catch (error) {
+      return Left(error);
+    }
+  }
+
+  Future<Either<DioException, List<VendorModel>>> getAllVendors() async {
+    try {
+      final data = await SectionsRemoteDataSource().getAllVendors();
       return Right(data);
     } on DioException catch (error) {
       return Left(error);
