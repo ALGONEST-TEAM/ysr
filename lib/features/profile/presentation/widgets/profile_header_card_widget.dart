@@ -52,9 +52,7 @@ class ProfileHeaderCardWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AutoSizeTextWidget(
-                        text: Auth().name,
-                      ),
+                      AutoSizeTextWidget(text: Auth().name),
                       4.h.verticalSpace,
                       AutoSizeTextWidget(
                         text: Auth().phoneNumber,

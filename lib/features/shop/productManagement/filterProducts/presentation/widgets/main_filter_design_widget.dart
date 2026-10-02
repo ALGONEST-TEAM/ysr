@@ -22,40 +22,60 @@ class MainFilterDesignWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Active state (selected filter)
+    final activeBgColor = AppColors.primaryColor.withValues(alpha: 0.06);
+    final activeBorderColor = AppColors.primaryColor.withValues(alpha: 0.2);
+    final activeTextColor = AppColors.primaryColor;
+
+    // Inactive state
+    const inactiveBgColor = Color(0xFFF9FAFB);
+    const inactiveBorderColor = Color(0xFFE5E7EB);
+    const inactiveTextColor = Color(0xFF4B5563);
+
     return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-          decoration: BoxDecoration(
-            color: AppColors.whiteColor,
-            borderRadius: BorderRadius.circular(8.r),
-            border: border ? Border.all(color: AppColors.secondaryColor,width: 0.8.w) : null,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: AutoSizeTextWidget(
-                  text: title,
-                  colorText: AppColors.fontColor,
-                  fontSize: 10.8.sp,
-                  minFontSize: 10,
-                  fontWeight: FontWeight.w500,
-                ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(24.r),
+          splashColor: AppColors.primaryColor.withValues(alpha: 0.05),
+          highlightColor: AppColors.primaryColor.withValues(alpha: 0.02),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
+            decoration: BoxDecoration(
+              color: border ? activeBgColor : inactiveBgColor,
+              borderRadius: BorderRadius.circular(24.r),
+              border: Border.all(
+                color: border ? activeBorderColor : inactiveBorderColor,
+                width: 1.w,
               ),
-              2.w.horizontalSpace,
-              Padding(
-                padding:  EdgeInsets.only(top: 2.h),
-                child: SvgPicture.asset(
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: AutoSizeTextWidget(
+                    text: title,
+                    colorText: border ? activeTextColor : inactiveTextColor,
+                    fontSize: 12.sp,
+                    minFontSize: 10,
+                    fontWeight: border ? FontWeight.w600 : FontWeight.w500,
+                    maxLines: 1,
+                  ),
+                ),
+                4.w.horizontalSpace,
+                SvgPicture.asset(
                   icon,
-                  color: AppColors.fontColor.withValues(alpha: 0.8),
-                  height: 10.h,
+                  colorFilter: ColorFilter.mode(
+                    border ? activeTextColor : inactiveTextColor,
+                    BlendMode.srcIn,
+                  ),
+                  height: 12.h,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

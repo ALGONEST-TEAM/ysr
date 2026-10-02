@@ -27,46 +27,64 @@ class ListOfSizeInFilterWidget extends ConsumerWidget {
     final stateFilter = ref.watch(filterProductProvider(idCategory));
 
     return Wrap(
-      spacing: 10.w,
-      runSpacing: 8.h,
+      spacing: 12.w,
+      runSpacing: 12.h,
       children: size.map((item) {
         final isSelected = selectedSizes.contains(item.id);
-        return InkWell(
-          onTap: () {
-            if (stateFilter.stateData != States.loading) {
-              ref
-                  .read(selectedSizesProvider(idCategory).notifier)
-                  .toggleSize(item.id!);
-              ref.read(filterProductProvider(idCategory).notifier).getProductOfFilter(
-                    idSize: ref.read(selectedSizesProvider(idCategory)),
-                    idColor: ref.read(selectedColorsProvider(idCategory)),
-                    idSubCategory:
-                        ref.read(selectedCategoryProvider(idCategory)),
-                sortOption: ref.read(selectProductsSortOptionProvider(idCategory)),
-                    nameSearch: isSearchFilter ? nameSearch : '',
-                  );
-            }
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? AppColors.primaryColor.withValues(alpha: 0.2)
-                  : AppColors.whiteColor,
-              border: Border.all(
-                color:
-                    isSelected ? AppColors.primaryColor : AppColors.fontColor,
-                width: isSelected ? 1.2.r : 0.2.r,
+        return Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12.r),
+            onTap: () {
+              if (stateFilter.stateData != States.loading) {
+                ref
+                    .read(selectedSizesProvider(idCategory).notifier)
+                    .toggleSize(item.id!);
+                ref.read(filterProductProvider(idCategory).notifier).getProductOfFilter(
+                      idSize: ref.read(selectedSizesProvider(idCategory)),
+                      idColor: ref.read(selectedColorsProvider(idCategory)),
+                      idSubCategory:
+                          ref.read(selectedCategoryProvider(idCategory)),
+                  sortOption: ref.read(selectProductsSortOptionProvider(idCategory)),
+                      nameSearch: isSearchFilter ? nameSearch : '',
+                    );
+              }
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOutCubic,
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+              decoration: BoxDecoration(
+                color: isSelected ? AppColors.primaryColor : Colors.white,
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(
+                  color: isSelected ? AppColors.primaryColor : const Color(0xFFE5E7EB),
+                  width: 1.w,
+                ),
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: AppColors.primaryColor.withValues(alpha: 0.25),
+                          offset: const Offset(0, 4),
+                          blurRadius: 10,
+                        )
+                      ]
+                    : [],
               ),
-              borderRadius: BorderRadius.circular(6.r)
-            ),
-            child: AutoSizeTextWidget(
-              text: item.sizeTypeName,
-              colorText:
-                  isSelected ? AppColors.primaryColor : AppColors.fontColor,
-              fontSize: 10.sp,
-              fontWeight: FontWeight.w500,
-              textAlign: TextAlign.center,
+              child: AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeOutCubic,
+                style: TextStyle(
+                  color: isSelected ? Colors.white : const Color(0xFF4B5563),
+                  fontSize: 12.sp,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                  fontFamily: 'Tajawal', // Assuming this is your app's font
+                ),
+                child: Text(
+                  item.sizeTypeName ?? '',
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           ),
         );

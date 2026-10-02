@@ -36,7 +36,7 @@ class ListTileProfileWidget extends StatelessWidget {
           ),
           leading: SvgPicture.asset(
             icon,
-            color: AppColors.secondaryColor,
+            color: AppColors.primaryColor,
             height: iconHeight ?? 18.h,
           ),
           trailing: Padding(
@@ -47,14 +47,14 @@ class ListTileProfileWidget extends StatelessWidget {
                   : AppIcons.arrowRightEn,
               color: const Color(0xffbfc8c6),
               height: Directionality.of(context) == TextDirection.rtl
-                  ? 14.h
-                  : 17.h,
+                  ? 12.h
+                  : 15.h,
             ),
           ),
           titleAlignment: ListTileTitleAlignment.center,
           dense: true,
           horizontalTitleGap: 10.w,
-          contentPadding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 12.w),
+          contentPadding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 16.w),
         ),
       ),
     );

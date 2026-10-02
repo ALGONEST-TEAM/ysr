@@ -18,61 +18,82 @@ class FilterWithCounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isActive = sumOfSelectedItemInFilter > 0;
+    
     return Row(
       children: [
+        // A subtle vertical divider
         Container(
-          height: 22.h,
-          color: AppColors.fontColor2.withValues(alpha: 0.6),
-          width: 0.8.w,
+          height: 24.h,
+          width: 1.w,
+          color: const Color(0xFFE5E7EB),
         ),
         8.w.horizontalSpace,
-        InkWell(
-          onTap: onTap,
-          child: Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.8.h),
-                decoration: BoxDecoration(
-                  color: AppColors.secondaryColor,
-                  borderRadius: BorderRadius.circular(8.r),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(24.r),
+            splashColor: AppColors.primaryColor.withValues(alpha: 0.05),
+            highlightColor: AppColors.primaryColor.withValues(alpha: 0.02),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+              decoration: BoxDecoration(
+                color: isActive ? AppColors.primaryColor : const Color(0xFFF9FAFB),
+                borderRadius: BorderRadius.circular(24.r),
+                border: Border.all(
+                  color: isActive ? AppColors.primaryColor : const Color(0xFFE5E7EB),
+                  width: 1.w,
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AutoSizeTextWidget(
-                      text: S.of(context).filter,
-                      colorText: Colors.white,
-                      fontSize: 10.6.sp,
-                    ),
-                    3.w.horizontalSpace,
-                    SvgPicture.asset(
-                      AppIcons.filter,
-                      color: Colors.white,
-                      height: 13.4.h,
-                    )
-                  ],
-                ),
+                boxShadow: isActive
+                    ? [
+                        BoxShadow(
+                          color: AppColors.primaryColor.withValues(alpha: 0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        )
+                      ]
+                    : [],
               ),
-              if (sumOfSelectedItemInFilter != 0)
-                Container(
-                  width: 11.4.w,
-                  height: 11.4.h,
-                  margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    color: AppColors.primaryColor,
-                    shape: BoxShape.circle,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AutoSizeTextWidget(
+                    text: S.of(context).filter,
+                    colorText: isActive ? Colors.white : const Color(0xFF4B5563),
+                    fontSize: 12.sp,
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
                   ),
-                  child: AutoSizeTextWidget(
-                    text: sumOfSelectedItemInFilter.toString(),
-                    colorText: Colors.white,
-                    fontSize: 8.sp,
-                    minFontSize: 1,
+                  4.w.horizontalSpace,
+                  SvgPicture.asset(
+                    AppIcons.filter,
+                    colorFilter: ColorFilter.mode(
+                      isActive ? Colors.white : const Color(0xFF4B5563),
+                      BlendMode.srcIn,
+                    ),
+                    height: 14.h,
                   ),
-                ),
-            ],
+                  if (isActive) ...[
+                    6.w.horizontalSpace,
+                    Container(
+                      padding: EdgeInsets.all(4.r),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: AutoSizeTextWidget(
+                        text: sumOfSelectedItemInFilter.toString(),
+                        colorText: AppColors.primaryColor,
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.bold,
+                        minFontSize: 1,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
         ),
       ],

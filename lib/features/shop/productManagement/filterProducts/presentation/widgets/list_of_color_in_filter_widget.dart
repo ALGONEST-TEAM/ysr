@@ -26,49 +26,58 @@ class ListOfColorInFilterWidget extends ConsumerWidget {
     final stateFilter = ref.watch(filterProductProvider(idCategory));
     return Wrap(
       spacing: 10.w,
-      runSpacing: 6.0.h,
+      runSpacing: 10.h,
       children: colorFilter.map((item) {
         final isSelected = selectedColors.contains(item.idColor);
 
-        return GestureDetector(
-          onTap: () {
-            if (stateFilter.stateData != States.loading) {
-              ref
-                  .read(selectedColorsProvider(idCategory).notifier)
-                  .toggleColor(item.idColor!);
-              ref.read(filterProductProvider(idCategory).notifier).getProductOfFilter(
-                  idSize: ref.read(selectedSizesProvider(idCategory)),
-                  idColor: ref.read(selectedColorsProvider(idCategory)),
-                  idSubCategory: ref.read(selectedCategoryProvider(idCategory)),
-                sortOption: ref.read(selectProductsSortOptionProvider(idCategory)),
-                  nameSearch: isSearchFilter ? nameSearch : '',
-              );
-            }
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 50),
-            height: 23.h,
-            width: 26.w,
-            decoration: BoxDecoration(
-              color: hexToColor(item.colorHex!),
-              borderRadius: BorderRadius.circular(6.r),
-              boxShadow: isSelected
-                  ? [
-                       const BoxShadow(
-                        color: AppColors.primaryColor,
-                        spreadRadius: 2,
-                      ),
-                      const BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: 1.0,
-                      ),
-                    ]
-                  : [],
-              border: isSelected
-                  ? null
-                  : Border.all(
-                      color: const Color(0xffE1E1E1),
-                    ),
+        return Material(
+          color: Colors.transparent,
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: () {
+              if (stateFilter.stateData != States.loading) {
+                ref
+                    .read(selectedColorsProvider(idCategory).notifier)
+                    .toggleColor(item.idColor!);
+                ref.read(filterProductProvider(idCategory).notifier).getProductOfFilter(
+                    idSize: ref.read(selectedSizesProvider(idCategory)),
+                    idColor: ref.read(selectedColorsProvider(idCategory)),
+                    idSubCategory: ref.read(selectedCategoryProvider(idCategory)),
+                  sortOption: ref.read(selectProductsSortOptionProvider(idCategory)),
+                    nameSearch: isSearchFilter ? nameSearch : '',
+                );
+              }
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOutBack,
+              height: 34.w,
+              width: 34.w,
+              padding: EdgeInsets.all(isSelected ? 2.w : 0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isSelected ? AppColors.primaryColor : Colors.transparent,
+                  width: 1.4.w,
+                ),
+              ),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: hexToColor(item.colorHex!),
+                  border: isSelected 
+                    ? null 
+                    : Border.all(color: const Color(0xFFE5E7EB), width: 1.w),
+                  boxShadow: [
+                    if (!isSelected)
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.06),
+                        offset: const Offset(0, 2),
+                        blurRadius: 4,
+                      )
+                  ],
+                ),
+              ),
             ),
           ),
         );

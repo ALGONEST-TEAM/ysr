@@ -40,7 +40,7 @@ AppBar appBarHomeWidget({required BuildContext context}) {
               navigateTo(context, SearchPage(hintTextSearch: ""));
             },
             child: CustomPaint(
-              painter: _SearchFieldArcPainter(
+              painter: SearchFieldArcPainter(
                 primaryColor: AppColors.primaryColor,
                 secondaryColor: AppColors.secondaryColor,
                 dotColor1: AppColors.primarySwatch.shade300,
@@ -141,7 +141,7 @@ AppBar appBarHomeWidget({required BuildContext context}) {
   );
 }
 
-class _SearchFieldArcPainter extends CustomPainter {
+class SearchFieldArcPainter extends CustomPainter {
   final Color primaryColor;
   final Color secondaryColor;
   final Color dotColor1;
@@ -149,7 +149,7 @@ class _SearchFieldArcPainter extends CustomPainter {
   final double arcDepth;
   final double borderRadius;
 
-  const _SearchFieldArcPainter({
+  const SearchFieldArcPainter({
     required this.primaryColor,
     required this.secondaryColor,
     required this.dotColor1,
@@ -275,7 +275,7 @@ class _SearchFieldArcPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _SearchFieldArcPainter oldDelegate) {
+  bool shouldRepaint(covariant SearchFieldArcPainter oldDelegate) {
     return oldDelegate.primaryColor != primaryColor ||
         oldDelegate.secondaryColor != secondaryColor ||
         oldDelegate.dotColor1 != dotColor1 ||

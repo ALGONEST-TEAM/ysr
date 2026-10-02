@@ -30,7 +30,7 @@ AppBar appBarSearchWidget({
           controller: search,
           autofocus: true,
           borderSide: BorderSide(
-            color: AppColors.secondaryColor,
+            color: AppColors.primaryColor,
           ),
           onSubmit: (value) {
             navigateTo(
@@ -69,7 +69,7 @@ AppBar appBarSearchWidget({
               5.horizontalSpace,
               SvgPicture.asset(
                 AppIcons.search,
-                color: AppColors.secondaryColor,
+                color: AppColors.primaryColor,
                 height: 17.5.h,
               ),
               8.w.horizontalSpace,

@@ -53,26 +53,54 @@ class _SubFilterDrawerWidgetState extends ConsumerState<SubFilterDrawerWidget> {
         ),
         child: Column(
           children: [
-            28.h.verticalSpace,
-            AutoSizeTextWidget(
-              text: S.of(context).filter,
-              fontSize: 16.5.sp,
-              fontWeight: FontWeight.w600,
-            ),
-            6.h.verticalSpace,
-            Divider(
-              color: AppColors.fontColor,
-              thickness: 0.2.sp,
-              height: 0,
+            Container(
+              padding: EdgeInsets.only(top: 40.h, bottom: 16.h, left: 16.w, right: 16.w),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.03),
+                    offset: const Offset(0, 2),
+                    blurRadius: 8,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AutoSizeTextWidget(
+                    text: S.of(context).filter,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    colorText: AppColors.primaryColor,
+                  ),
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(50.r),
+                    child: Container(
+                      padding: EdgeInsets.all(6.r),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFF3F4F6),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        size: 16.sp,
+                        color: const Color(0xFF6B7280),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(8.sp),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CardOfSubFilterDrawerWidget(
-                      isOpenToRead: selectedColors.isNotEmpty ? true : false,
+                      isOpenToRead: selectedColors.isNotEmpty,
                       title: S.of(context).color,
                       child: ListOfColorInFilterWidget(
                         colorFilter: widget.colorFilterList,
@@ -82,7 +110,7 @@ class _SubFilterDrawerWidgetState extends ConsumerState<SubFilterDrawerWidget> {
                       ),
                     ),
                     CardOfSubFilterDrawerWidget(
-                      isOpenToRead: selectedSizes.isNotEmpty ? true : false,
+                      isOpenToRead: selectedSizes.isNotEmpty,
                       title: S.of(context).size2,
                       child: ListOfSizeInFilterWidget(
                         size: widget.sizeFilterList,
@@ -92,7 +120,7 @@ class _SubFilterDrawerWidgetState extends ConsumerState<SubFilterDrawerWidget> {
                       ),
                     ),
                     CardOfSubFilterDrawerWidget(
-                      isOpenToRead: selectedCategory != null ? true : false,
+                      isOpenToRead: selectedCategory != null,
                       title: S.of(context).categories,
                       child: ListOfFilterCategoryWidget(
                         categoryFilter: widget.categoryFilterList,
@@ -105,24 +133,31 @@ class _SubFilterDrawerWidgetState extends ConsumerState<SubFilterDrawerWidget> {
                 ),
               ),
             ),
-            Divider(
-              color: AppColors.fontColor,
-              thickness: 0.2.sp,
-              height: 0,
-            ),
-            ClearButtonAndDone(
-              idCategory: widget.idCategory,
-              height: 29.h,
-              doneOnTap: () {
-                Navigator.pop(context);
-              },
-              clearOnTap: () {
-                clearProductFilters(
-                  context: context,
-                  ref: ref,
-                  categoryId: widget.idCategory,
-                );
-              },
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.04),
+                    offset: const Offset(0, -4),
+                    blurRadius: 12,
+                  ),
+                ],
+              ),
+              child: ClearButtonAndDone(
+                idCategory: widget.idCategory,
+                height: 42.h,
+                doneOnTap: () {
+                  Navigator.pop(context);
+                },
+                clearOnTap: () {
+                  clearProductFilters(
+                    context: context,
+                    ref: ref,
+                    categoryId: widget.idCategory,
+                  );
+                },
+              ),
             ),
           ],
         ),

@@ -11,11 +11,12 @@ class CardOfSubFilterDrawerWidget extends StatefulWidget {
   final Widget child;
   final bool isOpenToRead;
 
-  const CardOfSubFilterDrawerWidget(
-      {super.key,
-      required this.child,
-      required this.title,
-      required this.isOpenToRead});
+  const CardOfSubFilterDrawerWidget({
+    super.key,
+    required this.child,
+    required this.title,
+    required this.isOpenToRead,
+  });
 
   @override
   State<CardOfSubFilterDrawerWidget> createState() =>
@@ -28,45 +29,68 @@ class _CardOfSubFilterDrawerWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          readAll = !readAll;
-        });
-      },
-      child: Container(
-        margin: EdgeInsets.only(bottom: 14.h),
-        padding: EdgeInsets.all(10.sp),
-        decoration: BoxDecoration(
-            color: AppColors.scaffoldColor,
-            borderRadius: BorderRadius.circular(8.r)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    final bool isExpanded = readAll || widget.isOpenToRead;
+    
+    return Container(
+      margin: EdgeInsets.only(bottom: 12.h),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9FAFB),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: const Color(0xFFE5E7EB),
+          width: 1.w,
+        ),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16.r),
+          onTap: () {
+            setState(() {
+              readAll = !readAll;
+            });
+          },
+          child: Padding(
+            padding: EdgeInsets.all(12.sp),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AutoSizeTextWidget(
-                  text: widget.title,
-                  fontSize: 12.6.sp,
-                  fontWeight: FontWeight.w600,
-                  colorText: AppColors.mainColorFont,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AutoSizeTextWidget(
+                      text: widget.title,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                      colorText: AppColors.mainColorFont,
+                    ),
+                    AnimatedRotation(
+                      turns: isExpanded ? 0.5 : 0.0,
+                      duration: const Duration(milliseconds: 300),
+                      child: SvgPicture.asset(
+                        AppIcons.arrowBottom2,
+                        height: 12.4.h,
+                        colorFilter: const ColorFilter.mode(
+                          Color(0xFF6B7280),
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SvgPicture.asset(
-                  readAll || widget.isOpenToRead
-                      ? AppIcons.arrowUp
-                      : AppIcons.arrowBottom2,
-                  height: 12.4.h,
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  child: isExpanded
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 14.h),
+                          child: widget.child,
+                        )
+                      : const SizedBox(width: double.infinity),
                 ),
               ],
             ),
-            readAll || widget.isOpenToRead
-                ? Padding(
-                    padding: EdgeInsets.only(top: 12.h),
-                    child: widget.child,
-                  )
-                : const SizedBox(),
-          ],
+          ),
         ),
       ),
     );

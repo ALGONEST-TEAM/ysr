@@ -7,6 +7,7 @@ import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/widgets/auto_size_text_widget.dart';
 import '../../../../../core/widgets/buttons/icon_button_widget.dart';
 import '../../../../../core/widgets/cart_badge_icon_widget.dart';
+import '../../../home/presentation/widgets/app_bar_home_widget.dart';
 import '../../../productManagement/search_product/presntation/page/search_page.dart';
 
 SliverAppBar subcategoryFilterAppBarWidget(
@@ -37,33 +38,66 @@ SliverAppBar subcategoryFilterAppBarWidget(
               hintTextSearch: hintTextSearch,
             ));
       },
-      child: Container(
-        height: 30.h,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColors.secondaryColor, width: 0.8),
+      child:  CustomPaint(
+        painter: SearchFieldArcPainter(
+          primaryColor: AppColors.primaryColor,
+          secondaryColor: AppColors.secondaryColor,
+          dotColor1: AppColors.primarySwatch.shade300,
+          dotColor2: AppColors.secondarySwatch.shade300,
+          arcDepth: 10.w,
+          borderRadius: 22.r,
         ),
-        child: Row(
-          children: [
-            8.w.horizontalSpace,
-            Expanded(
-              child: AutoSizeTextWidget(
-                text: hintTextSearch,
-                fontSize: 11.8.sp,
-                colorText: AppColors.secondaryColor,
+        child: Container(
+          height: 36.h,
+          padding: EdgeInsets.only(right: 22.w, left: 12.w),
+          alignment: Alignment.center,
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                AppIcons.search,
+                height: 16.h,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.fontColor3,
+                  BlendMode.srcIn,
+                ),
               ),
-            ),
-            SvgPicture.asset(
-              AppIcons.search,
-              color: AppColors.secondaryColor,
-              height: 16.h,
-            ),
-            8.w.horizontalSpace,
-          ],
+              8.w.horizontalSpace,
+              AutoSizeTextWidget(
+                text: hintTextSearch,
+                colorText: AppColors.fontColor3,
+                fontSize: 12.sp,
+              ),
+            ],
+          ),
         ),
       ),
+      // child: Container(
+      //   height: 30.h,
+      //   width: double.infinity,
+      //   decoration: BoxDecoration(
+      //     color: Colors.white,
+      //     borderRadius: BorderRadius.circular(12.r),
+      //     border: Border.all(color: AppColors.secondaryColor, width: 0.8),
+      //   ),
+      //   child: Row(
+      //     children: [
+      //       8.w.horizontalSpace,
+      //       Expanded(
+      //         child: AutoSizeTextWidget(
+      //           text: hintTextSearch,
+      //           fontSize: 11.8.sp,
+      //           colorText: AppColors.secondaryColor,
+      //         ),
+      //       ),
+      //       SvgPicture.asset(
+      //         AppIcons.search,
+      //         color: AppColors.secondaryColor,
+      //         height: 16.h,
+      //       ),
+      //       8.w.horizontalSpace,
+      //     ],
+      //   ),
+      // ),
     ),
     actions: [
       4.w.horizontalSpace,

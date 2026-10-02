@@ -27,9 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SecondaryAppBarWidget(
-        title: S.of(context).settings,
-      ),
+      appBar: SecondaryAppBarWidget(title: S.of(context).settings),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(12.sp),
         child: Column(
@@ -47,6 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 );
               },
             ),
+
             // ListTileProfileWidget(
             //   title: S.of(context).language,
             //   icon: AppIcons.translate,
@@ -59,7 +58,6 @@ class _SettingsPageState extends State<SettingsPage> {
             //     );
             //   },
             // ),
-
             Visibility(
               visible: Auth().loggedIn,
               child: Column(
